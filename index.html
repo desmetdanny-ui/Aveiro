@@ -733,6 +733,16 @@ function herbereken(){
   document.getElementById('tot-pp').innerHTML=totaal>0?'&#8364; '+(totaal/2).toFixed(0)+' p.p.':'&#8364; &mdash;';
 }
 laad();herbereken();
+
+/* Nodig omdat dit script nu een 'module' is: onclick/oninput in de HTML
+   kunnen anders deze functies niet meer vinden. */
+window.go = go;
+window.vul = vul;
+window.kop = kop;
+window.deel = deel;
+window.bw = bw;
+window.herbereken = herbereken;
+
 </script>
 </body>
 </html>
