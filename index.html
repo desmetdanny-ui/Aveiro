@@ -637,7 +637,31 @@ textarea.n::placeholder{color:#BDB5AC}
 
 <div class="toast" id="toast"></div>
 
-<script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-app.js";
+import { getFirestore, doc, setDoc, onSnapshot } from "https://www.gstatic.com/firebasejs/12.16.0/firebase-firestore.js";
+
+const firebaseConfig = {
+  apiKey: "AIzaSyC399MvSiF3PWF_ZTdFr0UqaoC6Fo7WsrY",
+  authDomain: "wiezen-club.firebaseapp.com",
+  projectId: "wiezen-club",
+  storageBucket: "wiezen-club.firebasestorage.app",
+  messagingSenderId: "184449254432",
+  appId: "1:184449254432:web:e4f4f93acae57a9a736845"
+};
+const fbApp = initializeApp(firebaseConfig);
+const db = getFirestore(fbApp);
+const guideDocRef = doc(db, 'guides', 'aveiro2026');
+
+let guideData = {};
+const saveTimers = {};
+function veldOpslaan(id, value){
+  guideData[id] = value;
+  clearTimeout(saveTimers[id]);
+  saveTimers[id] = setTimeout(() => {
+    setDoc(guideDocRef, { [id]: value }, { merge: true }).catch(e => console.error('opslaan mislukt', e));
+  }, 500);
+}
 const DG=[
   {id:'dag1',t:'Dag 1 - Aankomst',d:'Maandag 15 september'},
   {id:'dag2',t:'Dag 2 - Aveiro',d:'Dinsdag 16 september'},
@@ -645,8 +669,31 @@ const DG=[
   {id:'dag4',t:'Dag 4 - Zee',d:'Donderdag 18 september'},
   {id:'dag5',t:'Dag 5 - Vertrek',d:'Vrijdag 19 september'},
 ];
-function bw(id,v){try{localStorage.setItem('av26_'+id,v)}catch(e){}}
-function laad(){DG.forEach(d=>{try{const v=localStorage.getItem('av26_'+d.id);const el=document.getElementById('n-'+d.id);if(v&&el)el.value=v}catch(e){}});}
+function bw(id,v){ veldOpslaan(id, v); }
+
+const BUDGET_IDS = ['b-vluchten','b-transfer','b-hotel','b-ebike','b-r1','b-r2','b-r3','b-r4','b-lunch','b-trein','b-bolt','b-uitstap','b-shop','b-div'];
+
+onSnapshot(guideDocRef, (snap) => {
+  guideData = snap.exists() ? snap.data() : {};
+  DG.forEach(d => {
+    const el = document.getElementById('n-'+d.id);
+    if(el && guideData[d.id] !== undefined) el.value = guideData[d.id];
+  });
+  BUDGET_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if(el && guideData[id] !== undefined) el.value = guideData[id];
+  });
+  herbereken();
+}, (err) => console.error('sync error', err));
+
+function laad(){ /* wordt nu via onSnapshot hierboven live gedaan */ }
+
+document.addEventListener('DOMContentLoaded', () => {
+  BUDGET_IDS.forEach(id => {
+    const el = document.getElementById(id);
+    if(el) el.addEventListener('input', () => veldOpslaan(id, el.value));
+  });
+});
 function vul(){
   const c=document.getElementById('vi');let h='';let ok=false;
   DG.forEach(d=>{const el=document.getElementById('n-'+d.id);const tx=el?el.value.trim():'';if(tx)ok=true;
