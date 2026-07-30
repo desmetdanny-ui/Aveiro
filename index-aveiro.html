@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Aveiro 2026 - Danny & Martine</title>
+<link rel="apple-touch-icon" href="icon-aveiro.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Aveiro 2026">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="theme-color" content="#1A3A5C">
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;600&family=Inter:wght@300;400;500;600&display=swap');
+:root{--azul:#1A3A5C;--azul2:#244870;--zand:#F0EAD8;--terra:#B8622A;--ocean:#2A7A6E;--sun:#D4A030;--wit:#FDFAF5;--muted:#6E6860;--line:#E5DDD0}
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+body{font-family:'Inter',sans-serif;background:var(--wit);color:var(--azul);min-height:100vh}
+.hdr{background:var(--azul);padding:18px 18px 0;position:sticky;top:0;z-index:50;border-bottom:2px solid var(--terra)}
+.hdr-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px}
+.hdr-title{font-family:'Cormorant Garamond',serif;font-size:1.55rem;color:var(--zand);font-weight:600;line-height:1.1}
+.hdr-sub{font-size:.7rem;color:var(--sun);text-transform:uppercase;letter-spacing:.1em;margin-top:4px;font-weight:500}
+.btn-deel{background:var(--terra);color:white;border:none;padding:8px 13px;border-radius:18px;font-size:.72rem;font-family:'Inter',sans-serif;font-weight:600;cursor:pointer;display:flex;align-items:center;gap:5px;flex-shrink:0;margin-left:12px}
+.tabs{display:flex;gap:6px;overflow-x:auto;padding:0 0 12px;scrollbar-width:none}
+.tabs::-webkit-scrollbar{display:none}
+.tab{background:rgba(255,255,255,.08);color:rgba(240,234,216,.7);border:1px solid rgba(255,255,255,.1);padding:6px 13px;border-radius:16px;font-size:.72rem;font-family:'Inter',sans-serif;cursor:pointer;white-space:nowrap;font-weight:400;transition:all .15s}
+.tab.on{background:var(--terra);border-color:var(--terra);color:white;font-weight:600}
+.page{display:none;padding-bottom:120px}.page.on{display:block}
+.hero{padding:22px 18px 18px;color:white}
+.hero-eye{font-size:.67rem;text-transform:uppercase;letter-spacing:.13em;opacity:.75;margin-bottom:5px}
+.hero h2{font-family:'Cormorant Garamond',serif;font-size:1.4rem;font-weight:600;margin-bottom:5px}
+.hero p{font-size:.8rem;opacity:.88;line-height:1.55}
+.vlucht-strip{margin:12px 14px;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.vr{display:flex;align-items:center;gap:12px;padding:13px 16px;background:var(--azul2);border-bottom:1px solid rgba(255,255,255,.06)}
+.vr:last-child{border-bottom:none}
+.vn{font-size:.67rem;color:var(--sun);font-weight:600;letter-spacing:.09em;text-transform:uppercase;margin-bottom:2px}
+.vro{font-size:.88rem;color:var(--zand);font-weight:600}
+.vt{font-size:.75rem;color:rgba(240,234,216,.6);margin-top:1px}
+.card{margin:10px 14px;background:white;border-radius:12px;overflow:hidden;border:1px solid var(--line);box-shadow:0 1px 8px rgba(26,58,92,.06)}
+.ch{background:var(--azul);color:var(--zand);padding:12px 16px;display:flex;justify-content:space-between;align-items:baseline}
+.ct{font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600}
+.cd{font-size:.68rem;color:var(--sun)}
+.cb{padding:14px 16px}
+.tb{display:flex;gap:13px;padding-bottom:13px;margin-bottom:13px;border-bottom:1px solid var(--line)}
+.tb:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.tbt{min-width:50px;font-size:.67rem;font-weight:600;color:var(--terra);text-transform:uppercase;letter-spacing:.05em;padding-top:2px;flex-shrink:0}
+.tbw strong{font-size:.88rem;font-weight:600;display:block;margin-bottom:3px;color:var(--azul)}
+.tbw p{font-size:.78rem;color:var(--muted);line-height:1.55}
+.bm{display:inline-flex;align-items:center;gap:5px;margin-top:7px;background:var(--ocean);color:white;text-decoration:none;padding:6px 13px;border-radius:16px;font-size:.7rem;font-weight:600}
+.bm svg{width:12px;height:12px;flex-shrink:0}
+.park{display:inline-flex;align-items:center;gap:4px;background:#EAF4EE;color:#1E6E3A;border-radius:14px;padding:3px 9px;font-size:.67rem;font-weight:600;margin-top:5px;margin-right:5px}
+.nb{padding:12px 16px 14px;border-top:1px solid var(--line);background:#FDFBF7}
+.nl{font-size:.67rem;font-weight:600;text-transform:uppercase;letter-spacing:.08em;color:var(--muted);margin-bottom:6px}
+textarea.n{width:100%;min-height:72px;border:1.5px solid var(--line);border-radius:8px;padding:9px 11px;font-family:'Inter',sans-serif;font-size:.8rem;color:var(--azul);resize:vertical;background:white;line-height:1.5;transition:border-color .15s}
+textarea.n:focus{outline:none;border-color:var(--terra)}
+textarea.n::placeholder{color:#BDB5AC}
+.tbox{margin:10px 14px;background:var(--azul);border-radius:12px;padding:16px;color:var(--zand)}
+.tbox h3{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--sun);margin-bottom:12px}
+.tr2{display:flex;gap:10px;margin-bottom:8px;font-size:.8rem;line-height:1.45}
+.tr2 .i{flex-shrink:0}
+.ovc{margin:10px 14px;background:white;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.ovh{background:var(--ocean);color:white;padding:12px 16px;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600}
+.ovb{padding:10px 16px}
+.ovr{display:flex;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);align-items:flex-start}
+.ovr:last-child{border-bottom:none}
+.ovd{font-weight:600;font-size:.78rem;min-width:74px}
+.ovt{font-size:.78rem;color:var(--muted);flex:1;line-height:1.4}
+.badge{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.04em;padding:2px 7px;border-radius:9px;white-space:nowrap;flex-shrink:0}
+.ba{background:#EBF3FA;color:var(--azul)}
+.bp{background:#FEF0E8;color:var(--terra)}
+.bz{background:#EDF7EF;color:#2A7A3C}
+.bx{background:#F5F0EA;color:#6A5020}
+.tipb{margin:10px 14px;background:#FFF8EC;border-radius:12px;padding:14px 16px;border-left:3px solid var(--sun)}
+.tipb h3{font-size:.67rem;font-weight:600;text-transform:uppercase;letter-spacing:.09em;color:#8A6A18;margin-bottom:9px}
+.tip{display:flex;gap:8px;font-size:.78rem;color:var(--azul);line-height:1.5;padding:5px 0;border-bottom:1px solid rgba(212,168,48,.18)}
+.tip:last-child{border-bottom:none}
+.ti{flex-shrink:0}
+.rc{margin:10px 14px;background:white;border-radius:12px;overflow:hidden;border:1px solid var(--line)}
+.rh{background:linear-gradient(135deg,var(--ocean) 0%,#1A5248 100%);color:white;padding:12px 16px;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-weight:600}
+.rb2{padding:12px 16px}
+.ri{padding:11px 0;border-bottom:1px solid var(--line)}
+.ri:last-child{border-bottom:none}
+.rn{font-weight:600;font-size:.88rem;color:var(--azul);margin-bottom:2px;display:flex;justify-content:space-between;align-items:center}
+.rbg{font-size:.62rem;font-weight:600;text-transform:uppercase;letter-spacing:.05em;padding:2px 8px;border-radius:10px}
+.rf{background:#F5EAF0;color:#8A2A5A}
+.rm{background:#EAF2F5;color:#1A5A72}
+.rt{background:#EDF7EE;color:#1A6030}
+.rd{font-size:.78rem;color:var(--muted);line-height:1.5;margin-bottom:5px}
+.rs{font-size:.74rem;color:var(--terra);font-style:italic}
+.vh{background:linear-gradient(135deg,#3A2A6A,#1A1040);padding:22px 18px 18px;color:white}
+.vdb{padding:14px 16px;border-bottom:1px solid var(--line)}
+.vdb:last-child{border-bottom:none}
+.vdt{font-family:'Cormorant Garamond',serif;font-size:1rem;color:var(--terra);font-weight:600;margin-bottom:2px}
+.vdd{font-size:.67rem;color:var(--muted);margin-bottom:6px}
+.vdtx{font-size:.8rem;color:var(--azul);line-height:1.6;white-space:pre-wrap;font-style:italic}
+.vdl{font-size:.78rem;color:#C5BDB5;font-style:italic}
+.bvs{display:block;margin:14px 14px 4px;background:var(--terra);color:white;border:none;padding:13px;border-radius:12px;font-size:.82rem;font-family:'Inter',sans-serif;font-weight:600;cursor:pointer;text-align:center;width:calc(100% - 28px)}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--azul);color:var(--zand);padding:9px 18px;border-radius:18px;font-size:.78rem;font-weight:600;z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap}
+.toast.zicht{opacity:1}
+.ic{width:12px;height:12px;flex-shrink:0}
+.bkg1{background:linear-gradient(135deg,var(--azul) 0%,#0E2240 100%)}
+.bkg2{background:linear-gradient(135deg,var(--terra) 0%,#6A2810 100%)}
+.bkg3{background:linear-gradient(135deg,var(--ocean) 0%,#1A4A42 100%)}
+.bkg4{background:linear-gradient(135deg,#4A3A1A 0%,#2A2010 100%)}
+.bkg5{background:linear-gradient(135deg,#3A2A6A,#1A1040)}
+.alert{background:#FEF3CD;border:1px solid #F0C040;border-radius:10px;padding:10px 14px;margin:0 0 10px;font-size:.8rem;color:#7A5A10;line-height:1.5}
+</style>
+</head>
+<body>
+
+<div class="hdr">
+  <div class="hdr-top">
+    <div>
+      <div class="hdr-title">&#127754; Aveiro 2026</div>
+      <div class="hdr-sub">Danny &amp; Martine &middot; 15 &ndash; 19 september</div>
+    </div>
+    <button class="btn-deel" onclick="deel()">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg>
+      Delen
+    </button>
+  </div>
+  <div class="tabs">
+    <button class="tab on" onclick="go('ov',this)">Overzicht</button>
+    <button class="tab" onclick="go('tr',this)">Transport</button>
+    <button class="tab" onclick="go('av',this)">Aveiro</button>
+    <button class="tab" onclick="go('po',this)">Porto</button>
+    <button class="tab" onclick="go('ze',this)">Zee</button>
+    <button class="tab" onclick="go('re',this)">&#127374; Eten</button>
+    <button class="tab" onclick="go('vs',this)">&#128214; Verslag</button>
+    <button class="tab" onclick="go('bud',this)">&#128176; Budget</button>
+    <button class="tab" onclick="go('tips',this)">&#128161; Tips</button>
+  </div>
+</div>
+
+<!-- OVERZICHT -->
+<div id="p-ov" class="page on">
+  <div class="hero bkg1">
+    <div class="hero-eye">4 nachten &middot; Aveiro, Portugal</div>
+    <h2>Het Veneti&euml; van Portugal</h2>
+    <p>Kanalen, Art Nouveau, verse zeevruchten, Porto per trein en een namiddag aan zee.</p>
+  </div>
+  <div class="vlucht-strip">
+    <div class="vr"><span style="font-size:1.1rem">&#9992;&#65039;</span><div><div class="vn">SN 3809 &mdash; Heenvlucht</div><div class="vro">Brussel (BRU) &rarr; Porto (OPO)</div><div class="vt">Maandag 15 sept 2026 &middot; Vertrek 14:35 &middot; Aankomst 16:10</div></div></div>
+    <div class="vr"><span style="font-size:1.1rem">&#127968;</span><div><div class="vn">SN 3812 &mdash; Terugvlucht</div><div class="vro">Porto (OPO) &rarr; Brussel (BRU)</div><div class="vt">Vrijdag 19 sept 2026 &middot; Vertrek 12:55 &middot; Aankomst 15:15</div></div></div>
+  </div>
+  <div class="ovc">
+    <div class="ovh">&#128197; Dagplanning</div>
+    <div class="ovb">
+      <div class="ovr"><div class="ovd">Ma 15 sept</div><div class="ovt">Aankomst 16:10 &middot; transfer naar Aveiro &middot; &#127374; Segreto Food &amp; Wine</div><div class="badge bx">Aankomst</div></div>
+      <div class="ovr"><div class="ovd">Di 16 sept</div><div class="ovt">Aveiro &middot; kanalen, moliceiro, Art Nouveau &middot; &#127374; Solar do Bacalhau</div><div class="badge ba">Aveiro</div></div>
+      <div class="ovr"><div class="ovd">Wo 17 sept</div><div class="ovt">Porto &middot; trein + e-bike tour + winkelen + Igreja do Carmo &middot; &#127374; Cais do Pescado</div><div class="badge bp">Porto</div></div>
+      <div class="ovr"><div class="ovd">Do 18 sept</div><div class="ovt">Museu + Costa Nova + zee &middot; &#127374; Mercantel &#10084;&#65039;</div><div class="badge bz">Zee</div></div>
+      <div class="ovr"><div class="ovd">Vr 19 sept</div><div class="ovt">Transfer 09:00 &middot; SN3812 om 12:55 &middot; Brussel 15:15</div><div class="badge bx">Vertrek</div></div>
+    </div>
+  </div>
+  <div class="tipb">
+    <h3>&#127477;&#127481; Praktisch</h3>
+    <div class="tip"><span class="ti">&#127968;</span><span>Turim Aveiro Palace &middot; Rua de Viana do Castelo 4 &middot; centraal aan de kanalen</span></div>
+    <div class="tip"><span class="ti">&#127774;&#65039;</span><span>September: 22&ndash;25&deg;C, weinig regen. Zee nog aangenaam warm (&plusmn;19&deg;C).</span></div>
+    <div class="tip"><span class="ti">&#127822;</span><span>Aveiro-specialiteit: Ovos Moles &mdash; eidooiergebakjes in de vorm van schelpen. Zeker proeven.</span></div>
+    <div class="tip"><span class="ti">&#128218;</span><span>Noteer elke dag jullie belevenissen &mdash; alles komt samen in het tabblad Verslag.</span></div>
+  </div>
+</div>
+
+<!-- TRANSPORT -->
+<div id="p-tr" class="page">
+  <div class="hero bkg4">
+    <div class="hero-eye">Vervoer</div>
+    <h2>Transport &amp; transfers</h2>
+    <p>Alles geboekt en geregeld.</p>
+  </div>
+  <div class="tbox">
+    <h3>&#9992;&#65039; Transfer 1 &mdash; Aankomst &#9989; Geboekt</h3>
+    <div class="tr2"><span class="i">&#128205;</span><span>Francisco S&aacute; Carneiro (OPO) &rarr; Turim Aveiro Palace</span></div>
+    <div class="tr2"><span class="i">&#128197;</span><span>Maandag 15 september 2026 &middot; vlucht SN3809 &middot; aankomst 16:10</span></div>
+    <div class="tr2"><span class="i">&#128101;</span><span>2 passagiers &middot; 2 middelgrote koffers</span></div>
+    <div class="tr2"><span class="i">&#128182;</span><span>&euro;160 totaal voor heen- en retourtransfer</span></div>
+    <div class="tr2"><span class="i">&#128203;</span><span>Reserveringsnummer: SD2752910426</span></div>
+    <div class="tr2"><span class="i">&#127968;</span><span>Afleveradres: Rua de Viana do Castelo 4, 3800-275 Aveiro</span></div>
+    <div class="tr2"><span class="i">&#8505;&#65039;</span><span>Chauffeur wacht met naambordje in aankomsthal. Vluchtbewaking inbegrepen.</span></div>
+    <a class="bm" style="margin-top:10px" href="https://maps.google.com/?saddr=Porto+Airport+OPO&daddr=Rua+de+Viana+do+Castelo+4+Aveiro" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Route luchthaven &rarr; hotel</a>
+  </div>
+  <div class="tbox">
+    <h3>&#127968; Transfer 2 &mdash; Vertrek &#9989; Geboekt</h3>
+    <div class="tr2"><span class="i">&#128205;</span><span>Turim Aveiro Palace &rarr; Francisco S&aacute; Carneiro (OPO)</span></div>
+    <div class="tr2"><span class="i">&#128197;</span><span>Vrijdag 19 september 2026 &middot; ophaling 09:00 aan hotel</span></div>
+    <div class="tr2"><span class="i">&#9992;&#65039;</span><span>Vlucht SN3812 &middot; vertrek 12:55 &middot; aankomst Brussel 15:15</span></div>
+    <div class="tr2"><span class="i">&#9200;</span><span>Klaar zijn met bagage om 09:00 in de lobby</span></div>
+    <a class="bm" style="margin-top:10px" href="https://maps.google.com/?saddr=Rua+de+Viana+do+Castelo+4+Aveiro&daddr=Porto+Airport+OPO" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Route hotel &rarr; luchthaven</a>
+  </div>
+  <div class="tbox">
+    <h3>&#128646; Trein naar Porto &mdash; woensdag 17 sept</h3>
+    <div class="tr2"><span class="i">&#128694;</span><span>Hotel &rarr; Station Aveiro: 15 min te voet of Bolt (&plusmn;&euro;4)</span></div>
+    <div class="tr2"><span class="i">&#128344;</span><span>Vertrek hotel: 07:30 &middot; aankomst Porto Campan&atilde; &plusmn;09:00</span></div>
+    <div class="tr2"><span class="i">&#128646;</span><span>Trein &plusmn;07:50 Aveiro &rarr; Porto Campan&atilde; &middot; &plusmn;1u10</span></div>
+    <div class="tr2"><span class="i">&#128182;</span><span>Ticket &plusmn;&euro;3,95 p.p. &middot; koop meteen retour aan automaat</span></div>
+    <div class="tr2"><span class="i">&#128692;</span><span>E-bike tour Bluedragon: aanwezig om 09:15, start 09:30</span></div>
+    <div class="tr2"><span class="i">&#127968;</span><span>Terug: Bolt naar Campan&atilde; &middot; trein &plusmn;17:30 &rarr; aankomst Aveiro &plusmn;19:30</span></div>
+    <a class="bm" style="margin-top:10px" href="https://maps.google.com/maps?saddr=Rua+de+Viana+do+Castelo+4+Aveiro&daddr=Aveiro+train+station&travelmode=walking" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>&#128694; Route te voet hotel &rarr; station</a>
+    <a class="bm" style="margin-top:6px" href="https://www.cp.pt/passageiros/pt/consultar-horarios" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>Treintijden CP Portugal</a>
+  </div>
+</div>
+
+<!-- AVEIRO -->
+<div id="p-av" class="page">
+  <div class="hero bkg1">
+    <div class="hero-eye">Dinsdag 16 september</div>
+    <h2>Aveiro verkennen</h2>
+    <p>Kleurrijke kanalen, moliceiroboten, Art Nouveau en prachtige azulejos.</p>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">Dag 2 &mdash; Aveiro</div><div class="cd">Dinsdag 16 september</div></div>
+    <div class="cb">
+      <div class="tb"><div class="tbt">09:30</div><div class="tbw"><strong>Kanalen &amp; eerste wandeling</strong><p>Na ontbijt rechtstreeks naar het Canal Central. Kleurrijke moliceiroboten, Art Nouveau gevels, historische pakhuizen.</p><span class="park">&#128694; Te voet vanuit hotel</span><a class="bm" href="https://maps.google.com/?q=Canal+Central+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Canal Central</a></div></div>
+      <div class="tb"><div class="tbt">11:00</div><div class="tbw"><strong>Moliceiro boottocht &mdash; &plusmn;45 min</strong><p>Typische gondeltocht door de kanalen. Vertrek aan Canal Central. Prijs &plusmn;&euro;15 p.p.</p><a class="bm" href="https://maps.google.com/?q=Moliceiro+boat+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Vertrekpunt boottochten</a></div></div>
+      <div class="tb"><div class="tbt">12:30</div><div class="tbw"><strong>Pra&ccedil;a do Peixe &mdash; lunch</strong><p>Het kloppende hart van Aveiro. Terrassen rondom de vismarkt. Eerste echte Portugese maaltijd.</p><a class="bm" href="https://maps.google.com/?q=Praca+do+Peixe+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Pra&ccedil;a do Peixe</a></div></div>
+      <div class="tb"><div class="tbt">15:00</div><div class="tbw"><strong>Art Nouveau wandeling</strong><p>Uitzonderlijke Art Nouveau architectuur. Museu de Arte Nova in een van die parels. Gratis wandelkaart bij het toeristenbureau.</p><a class="bm" href="https://maps.google.com/?q=Museu+Arte+Nova+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Museu Arte Nova</a></div></div>
+      <div class="tb"><div class="tbt">17:00</div><div class="tbw"><strong>Station Aveiro &mdash; azulejos</strong><p>Een van de mooiste stations van Portugal. Prachtige azulejopanelen. Gratis, 5 minuten van het centrum.</p><a class="bm" href="https://maps.google.com/?q=Aveiro+Railway+Station" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Station Aveiro</a></div></div>
+    </div>
+    <div class="nb"><div class="nl">&#9999;&#65039; Onze belevenissen</div><textarea class="n" id="n-dag2" placeholder="Hoe waren de kanalen? De boottocht? Wat viel op aan de stad?" oninput="bw('dag2',this.value)"></textarea></div>
+  </div>
+</div>
+
+<!-- PORTO -->
+<div id="p-po" class="page">
+  <div class="hero bkg2">
+    <div class="hero-eye">Woensdag 17 september</div>
+    <h2>Porto per trein</h2>
+    <p>E-bike tour met Bluedragon langs de hoogtepunten, portwijnen in Gaia.</p>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">Dag 3 &mdash; Porto</div><div class="cd">Woensdag 17 september</div></div>
+    <div class="cb">
+      <div class="alert">&#9201; Let op: tour start om 09:30 &mdash; aanwezig zijn om 09:15. Vroeg vertrek uit Aveiro!</div>
+      <div class="tb"><div class="tbt">07:30</div><div class="tbw"><strong>Vroeg ontbijt &amp; vertrek hotel</strong><p>Vandaag vroeg klaar zijn. Ontbijt voor 07:30, om 07:35 vertrekken naar het station.</p></div></div>
+      <div class="tb"><div class="tbt">07:35</div><div class="tbw"><strong>Hotel &rarr; Station &mdash; te voet of Bolt</strong><p>15 minuten wandelen door het rustige Aveiro. Of Bolt voor &plusmn;&euro;4.</p><a class="bm" href="https://maps.google.com/maps?saddr=Rua+de+Viana+do+Castelo+4+Aveiro&daddr=Aveiro+train+station&travelmode=walking" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>&#128694; Route te voet naar station</a></div></div>
+      <div class="tb"><div class="tbt">07:50</div><div class="tbw"><strong>Trein Aveiro &rarr; Porto Campan&atilde;</strong><p>Directe trein, &plusmn;1u10. Tickets &plusmn;&euro;3,95 p.p. &mdash; koop meteen retour. Raam links voor het mooiste uitzicht.</p><a class="bm" href="https://maps.google.com/?q=Aveiro+train+station" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Station Aveiro</a></div></div>
+      <div class="tb"><div class="tbt">09:00</div><div class="tbw"><strong>Aankomst Porto Campan&atilde; &rarr; Bluedragon</strong><p>Metro lijn D of E richting centrum (&plusmn;&euro;2 p.p.) of Bolt. Moet om 09:15 aanwezig zijn bij Bluedragon.</p><a class="bm" href="https://maps.google.com/?q=Porto+Campanha+station" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Porto Campan&atilde;</a></div></div>
+      <div class="tb"><div class="tbt">09:15</div><div class="tbw"><strong>&#128692; Aanwezig bij Bluedragon Porto City Tours</strong><p>R. de Alexandre Herculano 251, 4000-053 Porto &middot; Ref: 1426044289<br>Tour start 09:30 &mdash; einde &plusmn;12:30. Helm verplicht (wordt voorzien). Gesloten schoenen aanbevolen. E-bike doet het zware werk &mdash; geen stress voor Martine.</p><a class="bm" href="https://maps.app.goo.gl/vjujVKqsxC1cNKh87" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Startpunt Bluedragon</a></div></div>
+      <div class="tb"><div class="tbt">12:30</div><div class="tbw"><strong>Lunch in Porto</strong><p>Ribeira heeft veel terrassen langs de Douro. Stap een steegje in voor betere kwaliteit &mdash; vermijd de eerste rij aan het water. Probeer een Francesinha als je avontuurlijk bent.</p></div></div>
+      <div class="tb"><div class="tbt">14:00</div><div class="tbw"><strong>Rua de Santa Catarina &mdash; winkelen</strong><p>De mooiste winkelstraat van Porto. Mode, schoenen, lokale winkels, koffiezaakjes. Aangenaam te wandelen, vlak en breed. Bolt vanuit Ribeira: &plusmn;&euro;5.</p><a class="bm" href="https://maps.google.com/?q=Rua+de+Santa+Catarina+Porto" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Rua de Santa Catarina</a></div></div>
+      <div class="tb"><div class="tbt">15:00</div><div class="tbw"><strong>Mercado do Bolh&atilde;o</strong><p>Prachtig gerenoveerde overdekte markt uit 1914. Lokale producten, verse vis, Portugees handwerk en souvenirs. Op 5 minuten van Santa Catarina. Neem de tijd &mdash; dit is jouw ding.</p><a class="bm" href="https://maps.google.com/?q=Mercado+do+Bolhao+Porto" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Mercado do Bolh&atilde;o</a></div></div>
+      <div class="tb"><div class="tbt">15:45</div><div class="tbw"><strong>Igreja do Carmo &mdash; azulejogevel &amp; interieur</strong><p>Een van de mooiste kerken van Porto. Spectaculaire azulejogevel en vergulde houtsnijwerk van binnen. Bolt van Bolh&atilde;o: &plusmn;&euro;5. Als het uitloopt bij de markt &mdash; sla de kerk over en zet het in het verslag voor een volgende keer.</p><a class="bm" href="https://maps.google.com/?q=Igreja+do+Carmo+Porto" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Igreja do Carmo</a></div></div>
+      <div class="tb"><div class="tbt">16:30</div><div class="tbw"><strong>Terrasje als afsluiter</strong><p>Koffie of een glaasje voor de terugreis. Bolt naar Campan&atilde;: &plusmn;&euro;6.</p></div></div>
+      <div class="tb"><div class="tbt">17:30</div><div class="tbw"><strong>Trein terug naar Aveiro</strong><p>Bolt naar Campan&atilde;, trein &plusmn;1u10. Aankomst Aveiro &plusmn;19:30. Avond: Cais do Pescado &mdash; reserveer voor 20:30.</p><a class="bm" href="https://maps.google.com/?q=Porto+Campanha+station" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Porto Campan&atilde; terug</a></div></div>
+    </div>
+    <div class="nb"><div class="nl">&#9999;&#65039; Onze belevenissen</div><textarea class="n" id="n-dag3" placeholder="Porto - hoe was de e-bike tour? De gids? Ribeira? De port in Gaia?" oninput="bw('dag3',this.value)"></textarea></div>
+  </div>
+</div>
+
+<!-- ZEE -->
+<div id="p-ze" class="page">
+  <div class="hero bkg3">
+    <div class="hero-eye">Donderdag 18 september</div>
+    <h2>Museu + Costa Nova &amp; Zee</h2>
+    <p>Ochtend cultuur in Aveiro, namiddag gestreepte huisjes en de Atlantische Oceaan.</p>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">Dag 4 &mdash; Zee</div><div class="cd">Donderdag 18 september</div></div>
+    <div class="cb">
+      <div class="tb"><div class="tbt">10:00</div><div class="tbw"><strong>Museu de Aveiro / Santa Joana</strong><p>Prachtig museum in voormalig klooster. Rijkelijk versierde azulejozalen, schilderijen van Prinses Joana. Entree &plusmn;&euro;4 p.p.</p><a class="bm" href="https://maps.google.com/?q=Museu+de+Aveiro+Santa+Joana" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Museu de Aveiro</a></div></div>
+      <div class="tb"><div class="tbt">11:30</div><div class="tbw"><strong>Ovos Moles proeven</strong><p>De traditionele eidooiergebakjes van Aveiro &mdash; in de vorm van schelpen en vissen. Bij Confeitaria Peixinho of A Mercearia.</p><a class="bm" href="https://maps.google.com/?q=Confeitaria+Peixinho+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Ovos Moles winkels</a></div></div>
+      <div class="tb"><div class="tbt">13:00</div><div class="tbw"><strong>Bus of Bolt naar Costa Nova</strong><p>Bus lijn 47 (&plusmn;30 min, &euro;2,55) of Bolt (&plusmn;&euro;12). Costa Nova ligt 13 km van Aveiro.</p><a class="bm" href="https://maps.google.com/?q=Costa+Nova+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Costa Nova</a></div></div>
+      <div class="tb"><div class="tbt">13:30</div><div class="tbw"><strong>Costa Nova &mdash; gestreepte huisjes &amp; lunch</strong><p>De iconische palheiros &mdash; kleurgestreepte vissershuisjes. Rustig in september. Goede visrestaurantjes ter plaatse.</p></div></div>
+      <div class="tb"><div class="tbt">15:00</div><div class="tbw"><strong>Praia da Barra &mdash; vuurtoren &amp; strand</strong><p>3 km van Costa Nova. Farol da Barra &mdash; hoogste vuurtoren van Portugal (60 m). Breed strand, zee &plusmn;19&deg;C in september.</p><a class="bm" href="https://maps.google.com/?q=Farol+da+Barra+Praia+da+Barra" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Praia da Barra</a></div></div>
+      <div class="tb"><div class="tbt">18:00</div><div class="tbw"><strong>Terug naar Aveiro</strong><p>Bus of Bolt terug. Avond: Salpoente &mdash; zie tabblad Eten.</p><a class="bm" href="https://maps.google.com/?saddr=Costa+Nova+Aveiro&daddr=Turim+Aveiro+Palace" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Route terug hotel</a></div></div>
+    </div>
+    <div class="nb"><div class="nl">&#9999;&#65039; Onze belevenissen</div><textarea class="n" id="n-dag4" placeholder="Costa Nova - de gestreepte huisjes in het echt? Het strand? Hoe was de zee?" oninput="bw('dag4',this.value)"></textarea></div>
+  </div>
+</div>
+
+<!-- RESTAURANTS -->
+<div id="p-re" class="page">
+  <div class="hero bkg3">
+    <div class="hero-eye">4 avonden &middot; opbouwend in niveau</div>
+    <h2>Eten in Aveiro</h2>
+    <p>Van levendig kanaalterras tot Michelin fine dining &mdash; elke avond een stap hoger.</p>
+  </div>
+  <div class="rc">
+    <div class="rh">Maandag 15 sept &mdash; Aankomstavond</div>
+    <div class="rb2"><div class="ri">
+      <div class="rn">Segreto Food &amp; Wine <span class="rbg rt">#1 Aveiro</span></div>
+      <div class="rd">#1 in Aveiro op TheFork &mdash; 9.7/10 op 740 reviews. Internationaal-Portugese keuken in een sfeervolle setting. R. Ant&oacute;nio dos Santos L&eacute; 18 &mdash; op 10 minuten van het hotel. Momenteel tot -30% korting. Perfecte eerste avond &mdash; hoog niveau zonder de formele sfeer van fine dining. Gem. &plusmn;&euro;28 p.p., met korting nog voordeliger.</div>
+      <div class="rs">&#127374; Aanbevolen: dagmenu met seizoensproducten &middot; vlees- en visbereidingen van hoog niveau</div>
+      <a class="bm" style="margin-top:8px" href="https://maps.google.com/?q=Segreto+Food+Wine+Aveiro+Rua+Antonio+dos+Santos+Le" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Segreto op Maps</a>
+    </div></div>
+  </div>
+  <div class="rc">
+    <div class="rh">Dinsdag 16 sept &mdash; Typisch Portugees</div>
+    <div class="rb2"><div class="ri">
+      <div class="rn">Solar do Bacalhau <span class="rbg rt">Bacalhau specialist</span></div>
+      <div class="rd">Top 10 in Aveiro &mdash; 9.3/10 op 1.483 recensies. Gespecialiseerd in bacalhau, het nationale gerecht van Portugal, op tientallen manieren bereid. Huiselijk en authentiek interieur. R. do Clube dos Galitos 27 &mdash; op 10 minuten wandelen van het hotel langs de kanalen. Gem. &plusmn;&euro;24 p.p. &mdash; uitstekende prijs-kwaliteit.</div>
+      <div class="rs">&#127374; Aanbevolen: bacalhau &agrave; Br&aacute;s &middot; bacalhau com natas &middot; bacalhau assado</div>
+      <a class="bm" style="margin-top:8px" href="https://maps.google.com/?q=Solar+do+Bacalhau+Aveiro+Rua+do+Clube+dos+Galitos" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Solar do Bacalhau op Maps</a>
+    </div></div>
+  </div>
+  <div class="rc">
+    <div class="rh">Woensdag 17 sept &mdash; Aan het kanaal</div>
+    <div class="rb2"><div class="ri">
+      <div class="rn">Cais do Pescado <span class="rbg rt">Kanaaluitzicht</span></div>
+      <div class="rd">Elegant zeevruchtenrestaurant aan het kanaal op Cais dos Mercanteis. Uitzicht op de Ria de Aveiro. Twee verdiepingen &mdash; vraag raamtafel boven. Ontvangst met champagne. 4.5/5 TripAdvisor. Te voet. &plusmn;&euro;60&ndash;75 p.p. met wijn.</div>
+      <div class="rs">&#127374; Aanbevolen: bacalhau &agrave; Cais &middot; cataplana voor 2 &middot; gegrilde zeebaars met zeerijst</div>
+      <a class="bm" style="margin-top:8px" href="https://maps.google.com/?q=Cais+do+Pescado+Aveiro+Cais+dos+Mercanteis" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Cais do Pescado op Maps</a>
+    </div></div>
+  </div>
+  <div class="rc">
+    <div class="rh">Donderdag 18 sept &mdash; Romantische afsluiter &#10084;&#65039;</div>
+    <div class="rb2"><div class="ri">
+      <div class="rn">Mercantel <span class="rbg rt">Kanaaluitzicht</span></div>
+      <div class="rd">"THE place to be in het Veneti&euml; van Portugal" &mdash; bezoekers zijn unaniem. Gelegen aan Cais dos Mercantéis, rechtstreeks aan het kanaal. Warme verlichting, intieme sfeer, eigentijdse Portugese keuken met verse lokale ingredi&euml;nten. Open keuken, gerechten om te delen aan tafel. Chef Cristiano Barata werkt met seizoensproducten. Uitstekende wijn- en cocktailkaart. Onvergetelijk moment in Aveiro. Te voet vanuit hotel. &plusmn;&euro;50&ndash;65 p.p. met wijn.</div>
+      <div class="rs">&#127374; Aanbevolen: seafoodrijst met mosselen, garnalen &amp; kreeft &middot; oven-baked rice met ribeye &middot; tuna tartare &middot; miso ice cream als dessert</div>
+      <a class="bm" style="margin-top:8px" href="https://maps.google.com/?q=Mercantel+Aveiro+Cais+dos+Mercanteis" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Mercantel op Maps</a>
+    </div></div>
+  </div>
+  <div class="tipb">
+    <h3>&#9888;&#65039; Reserveren &mdash; doe dit voor vertrek</h3>
+    <div class="tip"><span class="ti">Ma 15</span><span>Segreto Food &amp; Wine &mdash; reserveer via TheFork, check de -30% korting aanbieding</span></div>
+    <div class="tip"><span class="ti">Di 16</span><span>Solar do Bacalhau &mdash; reserveer 1 week op voorhand via TheFork of rechtstreeks</span></div>
+    <div class="tip"><span class="ti">Wo 17</span><span>Cais do Pescado &mdash; reserveer 1 week op voorhand, vraag raamtafel boven</span></div>
+    <div class="tip"><span class="ti">Do 18</span><span>Mercantel &mdash; reserveer 1 week op voorhand, vraag tafel aan het kanaalraam</span></div>
+  </div>
+</div>
+
+<!-- VERSLAG -->
+<div id="p-vs" class="page">
+  <div class="vh">
+    <div class="hero-eye">Herinneringen</div>
+    <h2 style="font-family:'Cormorant Garamond',serif;font-size:1.4rem;color:white;font-weight:600;margin-bottom:5px">&#128214; Ons reisverslag</h2>
+    <p style="font-size:.8rem;opacity:.85;line-height:1.5">Aveiro 2026 &mdash; alles wat jullie noteerden als blijvende herinnering.</p>
+  </div>
+  <div class="card" style="margin-top:12px">
+    <div class="ch" style="background:#3A2A6A"><div class="ct">Danny &amp; Martine &mdash; Aveiro 2026</div><div class="cd">15 &ndash; 19 september</div></div>
+    <div id="vi" class="cb"></div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">Dag 1 &mdash; Aankomst</div><div class="cd">Maandag 15 september</div></div>
+    <div class="nb" style="border-top:none"><div class="nl">&#9999;&#65039; Onze belevenissen</div><textarea class="n" id="n-dag1" placeholder="Hoe was de aankomst? Eerste indruk hotel? Eerste avond bij O Bairro?" oninput="bw('dag1',this.value)"></textarea></div>
+  </div>
+  <div class="card">
+    <div class="ch"><div class="ct">Dag 5 &mdash; Vertrek</div><div class="cd">Vrijdag 19 september</div></div>
+    <div class="nb" style="border-top:none"><div class="nl">&#9999;&#65039; Laatste gedachten</div><textarea class="n" id="n-dag5" placeholder="Wat nemen jullie mee van Aveiro? Mooiste moment? Zouden jullie terugkeren?" oninput="bw('dag5',this.value)"></textarea></div>
+  </div>
+  <button class="bvs" onclick="kop()">&#128203; Kopieer verslag als tekst</button>
+  <div class="tipb" style="margin-top:4px">
+    <h3>&#128161; Tips</h3>
+    <div class="tip"><span class="ti">&#9999;&#65039;</span><span>Noteer elke dag iets &mdash; ook kleine details zijn later het meest waardevol.</span></div>
+    <div class="tip"><span class="ti">&#128228;</span><span>Kopieer de tekst en deel via WhatsApp of mail met Sofie, Julie of vrienden.</span></div>
+    <div class="tip"><span class="ti">&#128424;&#65039;</span><span>Plak in Word of Google Docs om mooi af te drukken als herinnering.</span></div>
+  </div>
+</div>
+
+<!-- TIPS -->
+<div id="p-tips" class="page">
+  <div class="hero" style="background:linear-gradient(135deg,#4A2A1A 0%,#2A1208 100%)">
+    <div class="hero-eye">Insider tips</div>
+    <h2>&#128161; Tips &amp; Suggesties</h2>
+    <p>Kleine dingen die het verschil maken &mdash; van lokale smaken tot handige apps.</p>
+  </div>
+
+  <!-- ETEN & DRINKEN -->
+  <div class="card">
+    <div class="ch" style="background:linear-gradient(135deg,var(--ocean),#1A4A42)"><div class="ct">&#127860; Eten &amp; drinken</div></div>
+    <div class="cb">
+      <div class="tb"><div class="tbt">&#127822;</div><div class="tbw"><strong>Ovos Moles — d&eacute; specialiteit</strong><p>Eidooiergebakjes in de vorm van schelpen, vissen en moliceiros. Beste adressen: Confeitaria Peixinho (oudste van de stad) en A Mercearia. Ideaal als geschenk mee naar huis. Bewaren max. 3 dagen.</p></div></div>
+      <div class="tb"><div class="tbt">&#127869;&#65039;</div><div class="tbw"><strong>Pastel de nata</strong><p>Niet specifiek Aveirees maar overal aanwezig. Beste versie warm eten met kaneel en poedersuiker. Vraag altijd "quente" (warm).</p></div></div>
+      <div class="tb"><div class="tbt">&#127863;</div><div class="tbw"><strong>Lokale wijn</strong><p>Vinho Verde past perfect bij de zeevruchten van de regio &mdash; licht, fris, lage alcohol. Bij de restaurants vragen naar een lokale aanbeveling. Prijs in supermarkt: &plusmn;&euro;4&ndash;8.</p></div></div>
+      <div class="tb"><div class="tbt">&#9749;</div><div class="tbw"><strong>Koffie bestellen</strong><p>"Uma bica" = espresso &middot; "Um garoto" = espresso met melk &middot; "Um galão" = grote latte. Nooit "caf&eacute; au lait" zeggen &mdash; dat werkt niet.</p></div></div>
+      <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0"><div class="tbt">&#127801;</div><div class="tbw"><strong>Zonsondergang met een glas</strong><p>Beste plek: de kade van het Canal de S&atilde;o Roque rond 19:30 &mdash; het licht op de pakhuizen is dan prachtig. Neem een fles Vinho Verde mee van de supermarkt en geniet op een bankje.</p></div></div>
+    </div>
+  </div>
+
+  <!-- ACTIVITEITEN -->
+  <div class="card">
+    <div class="ch" style="background:var(--azul)"><div class="ct">&#127774;&#65039; Activiteiten &amp; uitstappen</div></div>
+    <div class="cb">
+      <div class="tb"><div class="tbt">&#128218;</div><div class="tbw"><strong>Livraria Lello — Porto</strong><p>Een van de mooiste boekenhandels ter wereld, vlak bij Igreja do Carmo. Tickets verplicht op voorhand via lellolivros.pt (&plusmn;&euro;8 p.p., verrekend bij aankoop). Tip: wacht ermee tot jullie bij de kerk zijn &mdash; het is 5 minuten wandelen.</p><a class="bm" href="https://maps.google.com/?q=Livraria+Lello+Porto" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Livraria Lello</a></div></div>
+      <div class="tb"><div class="tbt">&#128668;</div><div class="tbw"><strong>Tuk-tuk tour Aveiro</strong><p>Alternatief voor de moliceiro &mdash; kleine elektrische tuk-tuk toert door het centrum en langs de kanalen. &plusmn;45 min, &plusmn;&euro;15 p.p. Vertrek aan de vismarkt. Goed voor wie niet lang wil wandelen.</p></div></div>
+      <div class="tb"><div class="tbt">&#127984;&#65039;</div><div class="tbw"><strong>Forum Aveiro</strong><p>Groot modern winkelcentrum vlak bij het centrum, gebouwd door Nederlandse architecten. Goed voor een regenbui of als Martine nog meer wil shoppen. H&M, Zara, Fnac en lokale ketens.</p><a class="bm" href="https://maps.google.com/?q=Forum+Aveiro+shopping+center" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Forum Aveiro</a></div></div>
+      <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0"><div class="tbt">&#127754;</div><div class="tbw"><strong>Birdwatching Ria de Aveiro</strong><p>De lagune is een Natura 2000 gebied met flamingo's, lepelaars en reigers in september. Geen extra moeite &mdash; je ziet ze al vanuit Costa Nova langs de Ria.</p></div></div>
+    </div>
+  </div>
+
+  <!-- SOUVENIRS -->
+  <div class="card">
+    <div class="ch" style="background:var(--terra)"><div class="ct">&#127873; Souvenirs &amp; cadeaus</div></div>
+    <div class="cb">
+      <div class="tb"><div class="tbt">&#127822;</div><div class="tbw"><strong>Ovos Moles</strong><p>Het klassieke meebrengseltje. Koop bij Confeitaria Peixinho voor de mooiste verpakking. Bewaren max. 3 dagen &mdash; koop pas op de laatste dag.</p></div></div>
+      <div class="tb"><div class="tbt">&#129368;</div><div class="tbw"><strong>Vista Alegre porselein</strong><p>Aveiro is de thuisbasis van Vista Alegre &mdash; het mooiste Portugese porselein. Winkel in het centrum of aan het kanaal. Mokken, borden, vaasjes &mdash; betaalbaar en typisch.</p><a class="bm" href="https://maps.google.com/?q=Vista+Alegre+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Vista Alegre winkel</a></div></div>
+      <div class="tb"><div class="tbt">&#129474;</div><div class="tbw"><strong>Flor de sal</strong><p>Het zout van de Ria de Aveiro &mdash; met de hand geoogst uit de zoutpannen. Puur en aromatisch. Te koop in de Mercado do Bolh&atilde;o in Porto of lokale winkels. Geweldig cadeau voor kookliefhebbers.</p></div></div>
+      <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0"><div class="tbt">&#127863;</div><div class="tbw"><strong>Vinho Verde</strong><p>Neem een flesje mee naar huis. Beste adressen: supermarkt Pingo Doce of Continente. Kies voor een Alvarinho &mdash; de edele variant uit de regio.</p></div></div>
+    </div>
+  </div>
+
+  <!-- HANDIGE APPS & PRAKTISCH -->
+  <div class="card">
+    <div class="ch" style="background:#3A2A6A"><div class="ct">&#128241; Handige apps &amp; praktisch</div></div>
+    <div class="cb">
+      <div class="tb"><div class="tbt">&#128241;</div><div class="tbw"><strong>Apps installeren v&oacute;&oacute;r vertrek</strong><p>Bolt (taxi) &middot; CP comboios (trein Portugal) &middot; Google Translate met offline Portugees &middot; Google Maps met offline kaart Aveiro &amp; Porto gedownload.</p></div></div>
+      <div class="tb"><div class="tbt">&#128178;</div><div class="tbw"><strong>Geld &amp; betalen</strong><p>Multibanco = Portugees geldautomatennetwerk, goedkoopste optie. Kaart betalen werkt overal. Kleine restaurants soms enkel cash &mdash; altijd &plusmn;&euro;50 cash bij hebben. Fooi: 5&ndash;10% is vriendelijk maar niet verplicht.</p></div></div>
+      <div class="tb"><div class="tbt">&#127760;</div><div class="tbw"><strong>Portugese basiswoorden</strong><p>"Obrigado/a" = dank u &middot; "Por favor" = alstublieft &middot; "A conta" = de rekening &middot; "Muito bom" = heel goed &middot; "Onde fica?" = waar is? &middot; "Fala holand&ecirc;s?" = spreekt u Nederlands?</p></div></div>
+      <div class="tb"><div class="tbt">&#9728;&#65039;</div><div class="tbw"><strong>Weer september</strong><p>22&ndash;25&deg;C overdag, &plusmn;18&deg;C 's avonds. Neem een lichte jas mee voor de avonden. Kans op regen: klein maar niet nul &mdash; een compacte paraplu past in de tas.</p></div></div>
+      <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0"><div class="tbt">&#128205;</div><div class="tbw"><strong>Supermarkt</strong><p>Pingo Doce ligt op 5 minuten van het hotel &mdash; ideaal voor water, snacks, wijn en kleine boodschappen. Open tot 21u.</p><a class="bm" href="https://maps.google.com/?q=Pingo+Doce+Aveiro+centrum" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Pingo Doce</a></div></div>
+    </div>
+  </div>
+
+</div>
+
+<!-- BUDGET -->
+<div id="p-bud" class="page">
+  <div class="hero" style="background:linear-gradient(135deg,#2A4A1A 0%,#1A3010 100%)">
+    <div class="hero-eye">Kostenoverzicht</div>
+    <h2>&#128176; Budget Aveiro 2026</h2>
+    <p>Vul jullie werkelijke kosten in tijdens de reis &mdash; het totaal wordt automatisch berekend.</p>
+  </div>
+
+  <!-- TOTAAL BOVENAAN -->
+  <div class="card">
+    <div class="ch" style="background:#1A3010"><div class="ct">Totaal overzicht</div><div class="cd">Automatisch berekend</div></div>
+    <div class="cb">
+      <div class="tb">
+        <div class="tbt" style="color:var(--muted)">Vast</div>
+        <div class="tbw"><strong style="font-size:.88rem">Vluchten + transfer + hotel + e-bike</strong></div>
+        <div style="font-size:1rem;font-weight:700;color:var(--azul);min-width:80px;text-align:right" id="tot-vast">&euro; &mdash;</div>
+      </div>
+      <div class="tb">
+        <div class="tbt" style="color:var(--muted)">Eten</div>
+        <div class="tbw"><strong style="font-size:.88rem">4 avondrestaurants + lunches</strong></div>
+        <div style="font-size:1rem;font-weight:700;color:var(--azul);min-width:80px;text-align:right" id="tot-eten">&euro; &mdash;</div>
+      </div>
+      <div class="tb">
+        <div class="tbt" style="color:var(--muted)">Ter plaatse</div>
+        <div class="tbw"><strong style="font-size:.88rem">Vervoer + uitstappen + shopping + diversen</strong></div>
+        <div style="font-size:1rem;font-weight:700;color:var(--azul);min-width:80px;text-align:right" id="tot-ter">&euro; &mdash;</div>
+      </div>
+      <div style="margin-top:14px;padding-top:14px;border-top:2px solid var(--azul);display:flex;justify-content:space-between;align-items:center">
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.15rem;font-weight:600;color:var(--azul)">TOTAAL REIS</div>
+        <div style="font-family:'Cormorant Garamond',serif;font-size:1.5rem;font-weight:600;color:var(--terra)" id="tot-alles">&euro; &mdash;</div>
+      </div>
+      <div style="margin-top:8px;display:flex;justify-content:space-between;align-items:center">
+        <div style="font-size:.78rem;color:var(--muted)">Per persoon</div>
+        <div style="font-size:1rem;font-weight:600;color:var(--muted)" id="tot-pp">&euro; &mdash;</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- VASTE KOSTEN -->
+  <div class="card">
+    <div class="ch" style="background:#2A4A1A"><div class="ct">Vaste kosten &mdash; al geboekt</div><div class="cd">Gekende bedragen</div></div>
+    <div class="cb">
+
+      <div class="tb">
+        <div class="tbt">Vluchten</div>
+        <div class="tbw">
+          <strong>SN3809 + SN3812 &mdash; Brussel &harr; Porto</strong>
+          <p>2 personen retour</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-vluchten" placeholder="bedrag" oninput="herbereken()" style="width:120px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+      <div class="tb">
+        <div class="tbt">Transfer</div>
+        <div class="tbw">
+          <strong>Heen + terug &mdash; SD2752910426</strong>
+          <p>Porto Airport &harr; Hotel</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-transfer" value="160" oninput="herbereken()" style="width:120px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+      <div class="tb">
+        <div class="tbt">Hotel</div>
+        <div class="tbw">
+          <strong>Turim Aveiro Palace &mdash; 4 nachten</strong>
+          <p>Kamer met ontbijt, 2 personen</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-hotel" placeholder="bedrag" oninput="herbereken()" style="width:120px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+      <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
+        <div class="tbt">E-bike</div>
+        <div class="tbw">
+          <strong>Bluedragon Porto &mdash; Ref: 1426044289</strong>
+          <p>2 personen &middot; &plusmn;&euro;44 p.p.</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-ebike" value="88" oninput="herbereken()" style="width:120px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- RESTAURANTS -->
+  <div class="card">
+    <div class="ch" style="background:linear-gradient(135deg,var(--ocean),#1A4A42)"><div class="ct">Restaurants &mdash; 4 avonden</div><div class="cd">Werkelijk betaald</div></div>
+    <div class="cb">
+
+      <div class="tb">
+        <div class="tbt">Ma 15</div>
+        <div class="tbw">
+          <strong>Segreto Food &amp; Wine</strong>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-r1" placeholder="totaal 2 pers." oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+      <div class="tb">
+        <div class="tbt">Di 16</div>
+        <div class="tbw">
+          <strong>Solar do Bacalhau</strong>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-r2" placeholder="totaal 2 pers." oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+      <div class="tb">
+        <div class="tbt">Wo 17</div>
+        <div class="tbw">
+          <strong>Cais do Pescado</strong>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-r3" placeholder="totaal 2 pers." oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+      <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
+        <div class="tbt">Do 18</div>
+        <div class="tbw">
+          <strong>Mercantel</strong>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-r4" placeholder="totaal 2 pers." oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- LUNCHES & UITSTAPPEN -->
+  <div class="card">
+    <div class="ch" style="background:var(--terra)"><div class="ct">Lunches &amp; daguitgaven</div><div class="cd">Werkelijk betaald</div></div>
+    <div class="cb">
+
+      <div class="tb">
+        <div class="tbt">Lunches</div>
+        <div class="tbw">
+          <strong>5 dagen lunches samen</strong>
+          <p>Terrassen, vismarkt, Costa Nova, Porto</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-lunch" placeholder="totaal" oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+      <div class="tb">
+        <div class="tbt">Trein</div>
+        <div class="tbw">
+          <strong>Aveiro &harr; Porto (2 pers. retour)</strong>
+          <p>&plusmn;&euro;16 totaal</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-trein" value="16" oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+      <div class="tb">
+        <div class="tbt">Bolt</div>
+        <div class="tbw">
+          <strong>Bolt-ritten in Porto &amp; Aveiro</strong>
+          <p>Porto: &plusmn;&euro;25 &middot; Aveiro/Costa Nova: &plusmn;&euro;30</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-bolt" placeholder="totaal" oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+      <div class="tb">
+        <div class="tbt">Beziensw.</div>
+        <div class="tbw">
+          <strong>Musea, boottocht, Papagayo, Porto</strong>
+          <p>Moliceiro &plusmn;&euro;30 &middot; Museu &plusmn;&euro;8 &middot; Livraria Lello &plusmn;&euro;16 &middot; Gaia &plusmn;&euro;40</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-uitstap" placeholder="totaal" oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+      <div class="tb">
+        <div class="tbt">Shopping</div>
+        <div class="tbw">
+          <strong>Mercado do Bolh&atilde;o, winkels, souvenirs</strong>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-shop" placeholder="totaal" oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+      <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
+        <div class="tbt">Diversen</div>
+        <div class="tbw">
+          <strong>Koffies, aperitief, fooien, onverwacht</strong>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-div" placeholder="totaal" oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="tipb">
+    <h3>&#128161; Tips</h3>
+    <div class="tip"><span class="ti">&#128204;</span><span>Vul bedragen in tijdens de reis &mdash; ze worden automatisch bewaard op je toestel.</span></div>
+    <div class="tip"><span class="ti">&#128176;</span><span>Reken &plusmn;&euro;50 extra als buffer voor onverwachte uitgaven.</span></div>
+    <div class="tip"><span class="ti">&#128088;</span><span>Segreto heeft -30% korting &mdash; controleer dit bij reservering op TheFork.</span></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const DG=[
+  {id:'dag1',t:'Dag 1 - Aankomst',d:'Maandag 15 september'},
+  {id:'dag2',t:'Dag 2 - Aveiro',d:'Dinsdag 16 september'},
+  {id:'dag3',t:'Dag 3 - Porto',d:'Woensdag 17 september'},
+  {id:'dag4',t:'Dag 4 - Zee',d:'Donderdag 18 september'},
+  {id:'dag5',t:'Dag 5 - Vertrek',d:'Vrijdag 19 september'},
+];
+function bw(id,v){try{localStorage.setItem('av26_'+id,v)}catch(e){}}
+function laad(){DG.forEach(d=>{try{const v=localStorage.getItem('av26_'+d.id);const el=document.getElementById('n-'+d.id);if(v&&el)el.value=v}catch(e){}});}
+function vul(){
+  const c=document.getElementById('vi');let h='';let ok=false;
+  DG.forEach(d=>{const el=document.getElementById('n-'+d.id);const tx=el?el.value.trim():'';if(tx)ok=true;
+    h+=`<div class="vdb"><div class="vdt">${d.t}</div><div class="vdd">${d.d}</div>${tx?`<div class="vdtx">${tx.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`:`<div class="vdl">Nog geen notitie.</div>`}</div>`;
+  });
+  c.innerHTML=ok?h:'<p style="color:#BDB5AC;font-size:.8rem;font-style:italic;text-align:center;padding:24px 0">Vul belevenissen in - ze verschijnen hier automatisch.</p>';
+}
+function kop(){
+  let t='AVEIRO 2026 - Danny & Martine\n15 - 19 september\n\n';
+  DG.forEach(d=>{const el=document.getElementById('n-'+d.id);const tx=el?el.value.trim():'';t+=d.t.toUpperCase()+'\n'+d.d+'\n'+(tx||'(geen notitie)')+'\n\n';});
+  if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>tst('Verslag gekopieerd!')).catch(()=>tst('Kopieer handmatig'));}
+  else{tst('Kopieer de tekst handmatig');}
+}
+function deel(){
+  if(navigator.share){navigator.share({title:'Aveiro 2026 - Danny & Martine',url:window.location.href}).catch(()=>{});}
+  else if(navigator.clipboard){navigator.clipboard.writeText(window.location.href).then(()=>tst('Link gekopieerd!'));}
+  else{tst('Kopieer de URL uit de adresbalk');}
+}
+function tst(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('zicht');setTimeout(()=>t.classList.remove('zicht'),2600);}
+function go(n,b){
+  document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
+  document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
+  document.getElementById('p-'+n).classList.add('on');b.classList.add('on');
+  window.scrollTo(0,0);if(n==='vs')vul();
+}
+function herbereken(){
+  const g=id=>parseFloat(document.getElementById(id)?.value)||0;
+  const vast=g('b-vluchten')+g('b-transfer')+g('b-hotel')+g('b-ebike');
+  const eten=g('b-r1')+g('b-r2')+g('b-r3')+g('b-r4')+g('b-lunch');
+  const ter=g('b-trein')+g('b-bolt')+g('b-uitstap')+g('b-shop')+g('b-div');
+  const totaal=vast+eten+ter;
+  const fmt=n=>n>0?'&#8364; '+n.toFixed(0):'&#8364; &mdash;';
+  document.getElementById('tot-vast').innerHTML=fmt(vast);
+  document.getElementById('tot-eten').innerHTML=fmt(eten);
+  document.getElementById('tot-ter').innerHTML=fmt(ter);
+  document.getElementById('tot-alles').innerHTML=fmt(totaal);
+  document.getElementById('tot-pp').innerHTML=totaal>0?'&#8364; '+(totaal/2).toFixed(0)+' p.p.':'&#8364; &mdash;';
+}
+laad();herbereken();
+</script>
+</body>
+</html>
