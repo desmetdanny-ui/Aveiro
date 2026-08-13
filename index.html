@@ -102,6 +102,17 @@ textarea.n::placeholder{color:#BDB5AC}
 .bkg4{background:linear-gradient(135deg,#4A3A1A 0%,#2A2010 100%)}
 .bkg5{background:linear-gradient(135deg,#3A2A6A,#1A1040)}
 .alert{background:#FEF3CD;border:1px solid #F0C040;border-radius:10px;padding:10px 14px;margin:0 0 10px;font-size:.8rem;color:#7A5A10;line-height:1.5}
+.bev-item{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid var(--line)}
+.bev-item:last-child{border-bottom:none}
+.bev-item a{flex:1;color:var(--ocean);font-weight:600;font-size:.85rem;text-decoration:none;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.bev-item a:before{content:"📎 "}
+.bev-del{color:var(--terra);font-size:.68rem;font-weight:600;cursor:pointer;flex-shrink:0}
+.bev-add-row{display:flex;gap:6px;margin-top:10px}
+.bev-add-row input{font-family:'Inter',sans-serif;font-size:.8rem;padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;background:white;color:var(--azul)}
+.bev-add-row input.bev-naam{flex:1}
+.bev-add-row input.bev-url{flex:2}
+.bev-add-row button{background:var(--terra);color:white;border:none;border-radius:8px;padding:0 14px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;flex-shrink:0}
+.bev-hint{font-size:.68rem;color:var(--muted);margin-top:6px;line-height:1.4}
 </style>
 </head>
 <body>
@@ -196,6 +207,19 @@ textarea.n::placeholder{color:#BDB5AC}
     <div class="tr2"><span class="i">&#127968;</span><span>Terug: Bolt naar Campan&atilde; &middot; trein &plusmn;17:30 &rarr; aankomst Aveiro &plusmn;19:30</span></div>
     <a class="bm" style="margin-top:10px" href="https://maps.google.com/maps?saddr=Rua+de+Viana+do+Castelo+4+Aveiro&daddr=Aveiro+train+station&travelmode=walking" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>&#128694; Route te voet hotel &rarr; station</a>
     <a class="bm" style="margin-top:6px" href="https://www.cp.pt/passageiros/pt/consultar-horarios" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>Treintijden CP Portugal</a>
+  </div>
+
+  <div class="card">
+    <div class="ch"><div class="ct">📎 Bevestigingen</div><div class="cd">Vluchten, transfer, tickets...</div></div>
+    <div class="cb">
+      <div id="bev-lijst"></div>
+      <div class="bev-add-row">
+        <input type="text" class="bev-naam" id="bev-naam" placeholder="Naam (bv. transferbevestiging SD2752910426)">
+        <input type="text" class="bev-url" id="bev-url" placeholder="Link (Google Drive, e-mail...)">
+        <button onclick="voegBevestigingToe()">+</button>
+      </div>
+      <div class="bev-hint">Maak een foto of screenshot van de bevestiging, zet die op Google Drive, deel de link ("Iedereen met de link"), en plak die hier.</div>
+    </div>
   </div>
 </div>
 
@@ -671,6 +695,47 @@ const DG=[
 ];
 function bw(id,v){ veldOpslaan(id, v); }
 
+/* ================= BEVESTIGINGEN =================
+   Links naar vluchttickets, transferbevestigingen, tickets, etc.
+   Geen eigen bestandsopslag - gewoon een link (bv. naar een
+   gedeelde foto/screenshot op Google Drive) per bevestiging.
+   ==================================================== */
+function renderBevestigingen(){
+  const lijst = guideData.bevestigingen || [];
+  const el = document.getElementById('bev-lijst');
+  if (!el) return;
+  el.innerHTML = lijst.map((b, i) => `
+    <div class="bev-item">
+      <a href="${escapeHtml(b.url)}" target="_blank" rel="noopener">${escapeHtml(b.naam || b.url)}</a>
+      <span class="bev-del" onclick="verwijderBevestiging(${i})">verwijder</span>
+    </div>`).join('') || '<div class="vdl">Nog geen bevestigingen gekoppeld</div>';
+}
+
+function escapeHtml(str){
+  return (str||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+}
+
+function voegBevestigingToe(){
+  const naamInp = document.getElementById('bev-naam');
+  const urlInp = document.getElementById('bev-url');
+  const naam = naamInp.value.trim();
+  const url = urlInp.value.trim();
+  if (!url) return;
+  guideData.bevestigingen = guideData.bevestigingen || [];
+  guideData.bevestigingen.push({naam, url});
+  setDoc(guideDocRef, { bevestigingen: guideData.bevestigingen }, { merge: true }).catch(e => console.error('opslaan mislukt', e));
+  naamInp.value = '';
+  urlInp.value = '';
+  renderBevestigingen();
+}
+
+function verwijderBevestiging(i){
+  if (!guideData.bevestigingen) return;
+  guideData.bevestigingen.splice(i, 1);
+  setDoc(guideDocRef, { bevestigingen: guideData.bevestigingen }, { merge: true }).catch(e => console.error('opslaan mislukt', e));
+  renderBevestigingen();
+}
+
 const BUDGET_IDS = ['b-vluchten','b-transfer','b-hotel','b-ebike','b-r1','b-r2','b-r3','b-r4','b-lunch','b-trein','b-bolt','b-uitstap','b-shop','b-div'];
 
 onSnapshot(guideDocRef, (snap) => {
@@ -683,6 +748,7 @@ onSnapshot(guideDocRef, (snap) => {
     const el = document.getElementById(id);
     if(el && guideData[id] !== undefined) el.value = guideData[id];
   });
+  renderBevestigingen();
   herbereken();
 }, (err) => console.error('sync error', err));
 
@@ -742,6 +808,8 @@ window.kop = kop;
 window.deel = deel;
 window.bw = bw;
 window.herbereken = herbereken;
+window.voegBevestigingToe = voegBevestigingToe;
+window.verwijderBevestiging = verwijderBevestiging;
 
 </script>
 </body>
