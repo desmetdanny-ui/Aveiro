@@ -113,6 +113,9 @@ textarea.n::placeholder{color:#BDB5AC}
 .bev-add-row input.bev-url{flex:2}
 .bev-add-row button{background:var(--terra);color:white;border:none;border-radius:8px;padding:0 14px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer;flex-shrink:0}
 .bev-hint{font-size:.68rem;color:var(--muted);margin-top:6px;line-height:1.4}
+.edit-i{color:var(--terra);cursor:pointer;font-size:.85rem;margin-left:6px;font-weight:700}
+.add-blok2{display:block;width:100%;margin-top:6px;background:#F5F0EA;color:var(--muted);border:1.5px dashed var(--line);border-radius:8px;padding:10px;font-family:'Inter',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer}
+.del-i{color:#a13d2b;cursor:pointer;font-size:.68rem;font-weight:600;flex-shrink:0}
 </style>
 </head>
 <body>
@@ -148,10 +151,7 @@ textarea.n::placeholder{color:#BDB5AC}
     <h2>Het Veneti&euml; van Portugal</h2>
     <p>Kanalen, Art Nouveau, verse zeevruchten, Porto per trein en een namiddag aan zee.</p>
   </div>
-  <div class="vlucht-strip">
-    <div class="vr"><span style="font-size:1.1rem">&#9992;&#65039;</span><div><div class="vn">SN 3809 &mdash; Heenvlucht</div><div class="vro">Brussel (BRU) &rarr; Porto (OPO)</div><div class="vt">Maandag 15 sept 2026 &middot; Vertrek 14:35 &middot; Aankomst 16:10</div></div></div>
-    <div class="vr"><span style="font-size:1.1rem">&#127968;</span><div><div class="vn">SN 3812 &mdash; Terugvlucht</div><div class="vro">Porto (OPO) &rarr; Brussel (BRU)</div><div class="vt">Vrijdag 19 sept 2026 &middot; Vertrek 12:55 &middot; Aankomst 15:15</div></div></div>
-  </div>
+  <div class="vlucht-strip" id="vlucht-strip"></div>
   <div class="ovc">
     <div class="ovh">&#128197; Dagplanning</div>
     <div class="ovb">
@@ -179,34 +179,16 @@ textarea.n::placeholder{color:#BDB5AC}
     <p>Alles geboekt en geregeld.</p>
   </div>
   <div class="tbox">
-    <h3>&#9992;&#65039; Transfer 1 &mdash; Aankomst &#9989; Geboekt</h3>
-    <div class="tr2"><span class="i">&#128205;</span><span>Francisco S&aacute; Carneiro (OPO) &rarr; Turim Aveiro Palace</span></div>
-    <div class="tr2"><span class="i">&#128197;</span><span>Maandag 15 september 2026 &middot; vlucht SN3809 &middot; aankomst 16:10</span></div>
-    <div class="tr2"><span class="i">&#128101;</span><span>2 passagiers &middot; 2 middelgrote koffers</span></div>
-    <div class="tr2"><span class="i">&#128182;</span><span>&euro;160 totaal voor heen- en retourtransfer</span></div>
-    <div class="tr2"><span class="i">&#128203;</span><span>Reserveringsnummer: SD2752910426</span></div>
-    <div class="tr2"><span class="i">&#127968;</span><span>Afleveradres: Rua de Viana do Castelo 4, 3800-275 Aveiro</span></div>
-    <div class="tr2"><span class="i">&#8505;&#65039;</span><span>Chauffeur wacht met naambordje in aankomsthal. Vluchtbewaking inbegrepen.</span></div>
-    <a class="bm" style="margin-top:10px" href="https://maps.google.com/?saddr=Porto+Airport+OPO&daddr=Rua+de+Viana+do+Castelo+4+Aveiro" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Route luchthaven &rarr; hotel</a>
+    <h3>&#9992;&#65039; Transfer 1 &mdash; Aankomst <span class="edit-i" onclick="editTransfer(1)">&#9998;</span></h3>
+    <div id="transfer1-detail"></div>
   </div>
   <div class="tbox">
-    <h3>&#127968; Transfer 2 &mdash; Vertrek &#9989; Geboekt</h3>
-    <div class="tr2"><span class="i">&#128205;</span><span>Turim Aveiro Palace &rarr; Francisco S&aacute; Carneiro (OPO)</span></div>
-    <div class="tr2"><span class="i">&#128197;</span><span>Vrijdag 19 september 2026 &middot; ophaling 09:00 aan hotel</span></div>
-    <div class="tr2"><span class="i">&#9992;&#65039;</span><span>Vlucht SN3812 &middot; vertrek 12:55 &middot; aankomst Brussel 15:15</span></div>
-    <div class="tr2"><span class="i">&#9200;</span><span>Klaar zijn met bagage om 09:00 in de lobby</span></div>
-    <a class="bm" style="margin-top:10px" href="https://maps.google.com/?saddr=Rua+de+Viana+do+Castelo+4+Aveiro&daddr=Porto+Airport+OPO" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Route hotel &rarr; luchthaven</a>
+    <h3>&#127968; Transfer 2 &mdash; Vertrek <span class="edit-i" onclick="editTransfer(2)">&#9998;</span></h3>
+    <div id="transfer2-detail"></div>
   </div>
   <div class="tbox">
-    <h3>&#128646; Trein naar Porto &mdash; woensdag 17 sept</h3>
-    <div class="tr2"><span class="i">&#128694;</span><span>Hotel &rarr; Station Aveiro: 15 min te voet of Bolt (&plusmn;&euro;4)</span></div>
-    <div class="tr2"><span class="i">&#128344;</span><span>Vertrek hotel: 07:30 &middot; aankomst Porto Campan&atilde; &plusmn;09:00</span></div>
-    <div class="tr2"><span class="i">&#128646;</span><span>Trein &plusmn;07:50 Aveiro &rarr; Porto Campan&atilde; &middot; &plusmn;1u10</span></div>
-    <div class="tr2"><span class="i">&#128182;</span><span>Ticket &plusmn;&euro;3,95 p.p. &middot; koop meteen retour aan automaat</span></div>
-    <div class="tr2"><span class="i">&#128692;</span><span>E-bike tour Bluedragon: aanwezig om 09:15, start 09:30</span></div>
-    <div class="tr2"><span class="i">&#127968;</span><span>Terug: Bolt naar Campan&atilde; &middot; trein &plusmn;17:30 &rarr; aankomst Aveiro &plusmn;19:30</span></div>
-    <a class="bm" style="margin-top:10px" href="https://maps.google.com/maps?saddr=Rua+de+Viana+do+Castelo+4+Aveiro&daddr=Aveiro+train+station&travelmode=walking" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>&#128694; Route te voet hotel &rarr; station</a>
-    <a class="bm" style="margin-top:6px" href="https://www.cp.pt/passageiros/pt/consultar-horarios" target="_blank"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/></svg>Treintijden CP Portugal</a>
+    <h3>&#128646; Trein naar Porto <span class="edit-i" onclick="editTrein()">&#9998;</span></h3>
+    <div id="trein-detail"></div>
   </div>
 
   <div class="card">
@@ -235,15 +217,8 @@ textarea.n::placeholder{color:#BDB5AC}
   </div>
   <div class="card">
     <div class="ch"><div class="ct">Dag 2 &mdash; Aveiro</div><div class="cd">Dinsdag 16 september</div></div>
-    <div class="cb">
-      <div class="tb"><div class="tbt">09:30</div><div class="tbw"><strong>Kanalen &amp; eerste wandeling</strong><p>Na ontbijt rechtstreeks naar het Canal Central. Kleurrijke moliceiroboten, Art Nouveau gevels, historische pakhuizen.</p><span class="park">&#128694; Te voet vanuit hotel</span><a class="bm" href="https://maps.google.com/?q=Canal+Central+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Canal Central</a></div></div>
-      <div class="tb"><div class="tbt">11:00</div><div class="tbw"><strong>Moliceiro boottocht &mdash; &plusmn;45 min</strong><p>Typische gondeltocht door de kanalen. Vertrek aan Canal Central. Prijs &plusmn;&euro;15 p.p.</p><a class="bm" href="https://maps.google.com/?q=Moliceiro+boat+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Vertrekpunt boottochten</a></div></div>
-      <div class="tb"><div class="tbt">12:30</div><div class="tbw"><strong>Pra&ccedil;a do Peixe &mdash; lunch</strong><p>Het kloppende hart van Aveiro. Terrassen rondom de vismarkt. Eerste echte Portugese maaltijd.</p><a class="bm" href="https://maps.google.com/?q=Praca+do+Peixe+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Pra&ccedil;a do Peixe</a></div></div>
-      <div class="tb"><div class="tbt">13:30</div><div class="tbw"><strong>Catedral de S&atilde;o Domingos (S&eacute;)</strong><p>Deze kathedraal uit de 15de eeuw oogt van buiten niet als een klassieke kathedraal &mdash; ze is vastgebouwd tegen het voormalige Dominicaanse klooster, waardoor het silhouet asymmetrisch is. Door de eeuwen heen meermaals verbouwd, met sporen van zowel gotiek als barok. Let op de drie beelden van de Gratiën boven de ingang, pas in 1719 toegevoegd. Van binnen is het interieur verrassend wit en sober.</p><a class="bm" href="https://maps.google.com/?q=Se+Catedral+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Catedral de S&atilde;o Domingos</a></div></div>
-      <div class="tb"><div class="tbt">14:00</div><div class="tbw"><strong>Igreja da Miseric&oacute;rdia</strong><p>Deze 16de-eeuwse kerk aan het plein Pra&ccedil;a da Rep&uacute;blica valt op door de blauw-witte azulejogevel rond een sierlijke poort in mani&euml;ristische stijl. Binnenkomen is gratis en de moeite waard voor de gouden versieringen en tegeltableaus. Op wandelafstand vind je ook de Capela do Senhor das Barrocas &mdash; een klein maar rijkversierd kapelletje met prachtig verguld houtsnijwerk.</p><a class="bm" href="https://maps.google.com/?q=Igreja+da+Misericordia+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Igreja da Miseric&oacute;rdia</a></div></div>
-      <div class="tb"><div class="tbt">15:00</div><div class="tbw"><strong>Art Nouveau wandeling</strong><p>Uitzonderlijke Art Nouveau architectuur. Museu de Arte Nova in een van die parels. Gratis wandelkaart bij het toeristenbureau.</p><a class="bm" href="https://maps.google.com/?q=Museu+Arte+Nova+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Museu Arte Nova</a></div></div>
-      <div class="tb"><div class="tbt">17:00</div><div class="tbw"><strong>Station Aveiro &mdash; azulejos</strong><p>Een van de mooiste stations van Portugal. Het helderwitte gebouw uit 1916 is volledig bekleed met blauwe azulejos die regionale tradities en klederdracht uitbeelden. Niet meer in gebruik als station, maar wel gratis te bezoeken, op 5 minuten van het centrum.</p><a class="bm" href="https://maps.google.com/?q=Aveiro+Railway+Station" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Station Aveiro</a></div></div>
-    </div>
+    <div class="cb" id="tijdlijn-dag2"></div>
+    <div style="padding:0 16px 14px;"><button class="add-blok2" onclick="addActiviteit('dag2')">+ activiteit toevoegen</button></div>
     <div class="nb"><div class="nl">&#9999;&#65039; Onze belevenissen</div><textarea class="n" id="n-dag2" placeholder="Hoe waren de kanalen? De boottocht? Wat viel op aan de stad?" oninput="bw('dag2',this.value)"></textarea></div>
   </div>
 </div>
@@ -259,18 +234,9 @@ textarea.n::placeholder{color:#BDB5AC}
     <div class="ch"><div class="ct">Dag 3 &mdash; Porto</div><div class="cd">Woensdag 17 september</div></div>
     <div class="cb">
       <div class="alert">&#9201; Let op: tour start om 09:30 &mdash; aanwezig zijn om 09:15. Vroeg vertrek uit Aveiro!</div>
-      <div class="tb"><div class="tbt">07:30</div><div class="tbw"><strong>Vroeg ontbijt &amp; vertrek hotel</strong><p>Vandaag vroeg klaar zijn. Ontbijt voor 07:30, om 07:35 vertrekken naar het station.</p></div></div>
-      <div class="tb"><div class="tbt">07:35</div><div class="tbw"><strong>Hotel &rarr; Station &mdash; te voet of Bolt</strong><p>15 minuten wandelen door het rustige Aveiro. Of Bolt voor &plusmn;&euro;4.</p><a class="bm" href="https://maps.google.com/maps?saddr=Rua+de+Viana+do+Castelo+4+Aveiro&daddr=Aveiro+train+station&travelmode=walking" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>&#128694; Route te voet naar station</a></div></div>
-      <div class="tb"><div class="tbt">07:50</div><div class="tbw"><strong>Trein Aveiro &rarr; Porto Campan&atilde;</strong><p>Directe trein, &plusmn;1u10. Tickets &plusmn;&euro;3,95 p.p. &mdash; koop meteen retour. Raam links voor het mooiste uitzicht.</p><a class="bm" href="https://maps.google.com/?q=Aveiro+train+station" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Station Aveiro</a></div></div>
-      <div class="tb"><div class="tbt">09:00</div><div class="tbw"><strong>Aankomst Porto Campan&atilde; &rarr; Bluedragon</strong><p>Metro lijn D of E richting centrum (&plusmn;&euro;2 p.p.) of Bolt. Moet om 09:15 aanwezig zijn bij Bluedragon.</p><a class="bm" href="https://maps.google.com/?q=Porto+Campanha+station" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Porto Campan&atilde;</a></div></div>
-      <div class="tb"><div class="tbt">09:15</div><div class="tbw"><strong>&#128692; Aanwezig bij Bluedragon Porto City Tours</strong><p>R. de Alexandre Herculano 251, 4000-053 Porto &middot; Ref: 1426044289<br>Tour start 09:30 &mdash; einde &plusmn;12:30. Helm verplicht (wordt voorzien). Gesloten schoenen aanbevolen. E-bike doet het zware werk &mdash; geen stress voor Martine.</p><a class="bm" href="https://maps.app.goo.gl/vjujVKqsxC1cNKh87" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Startpunt Bluedragon</a></div></div>
-      <div class="tb"><div class="tbt">12:30</div><div class="tbw"><strong>Lunch in Porto</strong><p>Ribeira heeft veel terrassen langs de Douro. Stap een steegje in voor betere kwaliteit &mdash; vermijd de eerste rij aan het water. Probeer een Francesinha als je avontuurlijk bent.</p></div></div>
-      <div class="tb"><div class="tbt">14:00</div><div class="tbw"><strong>Rua de Santa Catarina &mdash; winkelen</strong><p>De mooiste winkelstraat van Porto. Mode, schoenen, lokale winkels, koffiezaakjes. Aangenaam te wandelen, vlak en breed. Bolt vanuit Ribeira: &plusmn;&euro;5.</p><a class="bm" href="https://maps.google.com/?q=Rua+de+Santa+Catarina+Porto" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Rua de Santa Catarina</a></div></div>
-      <div class="tb"><div class="tbt">15:00</div><div class="tbw"><strong>Mercado do Bolh&atilde;o</strong><p>Prachtig gerenoveerde overdekte markt uit 1914. Lokale producten, verse vis, Portugees handwerk en souvenirs. Op 5 minuten van Santa Catarina. Neem de tijd &mdash; dit is jouw ding.</p><a class="bm" href="https://maps.google.com/?q=Mercado+do+Bolhao+Porto" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Mercado do Bolh&atilde;o</a></div></div>
-      <div class="tb"><div class="tbt">15:45</div><div class="tbw"><strong>Igreja do Carmo &mdash; azulejogevel &amp; interieur</strong><p>Een van de mooiste kerken van Porto. Spectaculaire azulejogevel en vergulde houtsnijwerk van binnen. Bolt van Bolh&atilde;o: &plusmn;&euro;5. Als het uitloopt bij de markt &mdash; sla de kerk over en zet het in het verslag voor een volgende keer.</p><a class="bm" href="https://maps.google.com/?q=Igreja+do+Carmo+Porto" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Igreja do Carmo</a></div></div>
-      <div class="tb"><div class="tbt">16:30</div><div class="tbw"><strong>Terrasje als afsluiter</strong><p>Koffie of een glaasje voor de terugreis. Bolt naar Campan&atilde;: &plusmn;&euro;6.</p></div></div>
-      <div class="tb"><div class="tbt">17:30</div><div class="tbw"><strong>Trein terug naar Aveiro</strong><p>Bolt naar Campan&atilde;, trein &plusmn;1u10. Aankomst Aveiro &plusmn;19:30. Avond: Cais do Pescado &mdash; reserveer voor 20:30.</p><a class="bm" href="https://maps.google.com/?q=Porto+Campanha+station" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Porto Campan&atilde; terug</a></div></div>
+      <div id="tijdlijn-dag3"></div>
     </div>
+    <div style="padding:0 16px 14px;"><button class="add-blok2" onclick="addActiviteit('dag3')">+ activiteit toevoegen</button></div>
     <div class="nb"><div class="nl">&#9999;&#65039; Onze belevenissen</div><textarea class="n" id="n-dag3" placeholder="Porto - hoe was de e-bike tour? De gids? Ribeira? De port in Gaia?" oninput="bw('dag3',this.value)"></textarea></div>
   </div>
 </div>
@@ -284,14 +250,8 @@ textarea.n::placeholder{color:#BDB5AC}
   </div>
   <div class="card">
     <div class="ch"><div class="ct">Dag 4 &mdash; Zee</div><div class="cd">Donderdag 18 september</div></div>
-    <div class="cb">
-      <div class="tb"><div class="tbt">10:00</div><div class="tbw"><strong>Museu de Aveiro / Santa Joana</strong><p>Gevestigd in het voormalige Convento de Jesus uit de 15de eeuw. Hier ligt de graftombe van Santa Joana, dochter van koning Alfons V, die zich in 1472 terugtrok in dit klooster en er tot haar dood in 1490 bleef. Haar barokke grafmonument is het hoogtepunt van het museum, samen met de rijkelijk versierde azulejozalen en de schilderijen over haar leven. Entree &plusmn;&euro;4 p.p.</p><a class="bm" href="https://maps.google.com/?q=Museu+de+Aveiro+Santa+Joana" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Museu de Aveiro</a></div></div>
-      <div class="tb"><div class="tbt">11:30</div><div class="tbw"><strong>Ovos Moles proeven</strong><p>De traditionele eidooiergebakjes van Aveiro &mdash; in de vorm van schelpen en vissen. Bij Confeitaria Peixinho of A Mercearia.</p><a class="bm" href="https://maps.google.com/?q=Confeitaria+Peixinho+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Ovos Moles winkels</a></div></div>
-      <div class="tb"><div class="tbt">13:00</div><div class="tbw"><strong>Bus of Bolt naar Costa Nova</strong><p>Bus lijn 47 (&plusmn;30 min, &euro;2,55) of Bolt (&plusmn;&euro;12). Costa Nova ligt 13 km van Aveiro.</p><a class="bm" href="https://maps.google.com/?q=Costa+Nova+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Costa Nova</a></div></div>
-      <div class="tb"><div class="tbt">13:30</div><div class="tbw"><strong>Costa Nova &mdash; gestreepte huisjes &amp; lunch</strong><p>De iconische palheiros &mdash; kleurgestreepte vissershuisjes. Rustig in september. Goede visrestaurantjes ter plaatse.</p></div></div>
-      <div class="tb"><div class="tbt">15:00</div><div class="tbw"><strong>Praia da Barra &mdash; vuurtoren &amp; strand</strong><p>3 km van Costa Nova. Farol da Barra &mdash; hoogste vuurtoren van Portugal (60 m). Breed strand, zee &plusmn;19&deg;C in september.</p><a class="bm" href="https://maps.google.com/?q=Farol+da+Barra+Praia+da+Barra" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Praia da Barra</a></div></div>
-      <div class="tb"><div class="tbt">18:00</div><div class="tbw"><strong>Terug naar Aveiro</strong><p>Bus of Bolt terug. Avond: Salpoente &mdash; zie tabblad Eten.</p><a class="bm" href="https://maps.google.com/?saddr=Costa+Nova+Aveiro&daddr=Turim+Aveiro+Palace" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Route terug hotel</a></div></div>
-    </div>
+    <div class="cb" id="tijdlijn-dag4"></div>
+    <div style="padding:0 16px 14px;"><button class="add-blok2" onclick="addActiviteit('dag4')">+ activiteit toevoegen</button></div>
     <div class="nb"><div class="nl">&#9999;&#65039; Onze belevenissen</div><textarea class="n" id="n-dag4" placeholder="Costa Nova - de gestreepte huisjes in het echt? Het strand? Hoe was de zee?" oninput="bw('dag4',this.value)"></textarea></div>
   </div>
 </div>
@@ -303,42 +263,8 @@ textarea.n::placeholder{color:#BDB5AC}
     <h2>Eten in Aveiro</h2>
     <p>Van levendig kanaalterras tot Michelin fine dining &mdash; elke avond een stap hoger.</p>
   </div>
-  <div class="rc">
-    <div class="rh">Maandag 15 sept &mdash; Aankomstavond</div>
-    <div class="rb2"><div class="ri">
-      <div class="rn">Segreto Food &amp; Wine <span class="rbg rt">#1 Aveiro</span></div>
-      <div class="rd">#1 in Aveiro op TheFork &mdash; 9.7/10 op 740 reviews. Internationaal-Portugese keuken in een sfeervolle setting. R. Ant&oacute;nio dos Santos L&eacute; 18 &mdash; op 10 minuten van het hotel. Momenteel tot -30% korting. Perfecte eerste avond &mdash; hoog niveau zonder de formele sfeer van fine dining. Gem. &plusmn;&euro;28 p.p., met korting nog voordeliger.</div>
-      <div class="rs">&#127374; Aanbevolen: dagmenu met seizoensproducten &middot; vlees- en visbereidingen van hoog niveau</div>
-      <a class="bm" style="margin-top:8px" href="https://maps.google.com/?q=Segreto+Food+Wine+Aveiro+Rua+Antonio+dos+Santos+Le" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Segreto op Maps</a>
-    </div></div>
-  </div>
-  <div class="rc">
-    <div class="rh">Dinsdag 16 sept &mdash; Typisch Portugees</div>
-    <div class="rb2"><div class="ri">
-      <div class="rn">Solar do Bacalhau <span class="rbg rt">Bacalhau specialist</span></div>
-      <div class="rd">Top 10 in Aveiro &mdash; 9.3/10 op 1.483 recensies. Gespecialiseerd in bacalhau, het nationale gerecht van Portugal, op tientallen manieren bereid. Huiselijk en authentiek interieur. R. do Clube dos Galitos 27 &mdash; op 10 minuten wandelen van het hotel langs de kanalen. Gem. &plusmn;&euro;24 p.p. &mdash; uitstekende prijs-kwaliteit.</div>
-      <div class="rs">&#127374; Aanbevolen: bacalhau &agrave; Br&aacute;s &middot; bacalhau com natas &middot; bacalhau assado</div>
-      <a class="bm" style="margin-top:8px" href="https://maps.google.com/?q=Solar+do+Bacalhau+Aveiro+Rua+do+Clube+dos+Galitos" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Solar do Bacalhau op Maps</a>
-    </div></div>
-  </div>
-  <div class="rc">
-    <div class="rh">Woensdag 17 sept &mdash; Aan het kanaal</div>
-    <div class="rb2"><div class="ri">
-      <div class="rn">Cais do Pescado <span class="rbg rt">Kanaaluitzicht</span></div>
-      <div class="rd">Elegant zeevruchtenrestaurant aan het kanaal op Cais dos Mercanteis. Uitzicht op de Ria de Aveiro. Twee verdiepingen &mdash; vraag raamtafel boven. Ontvangst met champagne. 4.5/5 TripAdvisor. Te voet. &plusmn;&euro;60&ndash;75 p.p. met wijn.</div>
-      <div class="rs">&#127374; Aanbevolen: bacalhau &agrave; Cais &middot; cataplana voor 2 &middot; gegrilde zeebaars met zeerijst</div>
-      <a class="bm" style="margin-top:8px" href="https://maps.google.com/?q=Cais+do+Pescado+Aveiro+Cais+dos+Mercanteis" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Cais do Pescado op Maps</a>
-    </div></div>
-  </div>
-  <div class="rc">
-    <div class="rh">Donderdag 18 sept &mdash; Romantische afsluiter &#10084;&#65039;</div>
-    <div class="rb2"><div class="ri">
-      <div class="rn">Mercantel <span class="rbg rt">Kanaaluitzicht</span></div>
-      <div class="rd">"THE place to be in het Veneti&euml; van Portugal" &mdash; bezoekers zijn unaniem. Gelegen aan Cais dos Mercant&eacute;is, rechtstreeks aan het kanaal. Warme verlichting, intieme sfeer, eigentijdse Portugese keuken met verse lokale ingredi&euml;nten. Open keuken, gerechten om te delen aan tafel. Chef Cristiano Barata werkt met seizoensproducten. Uitstekende wijn- en cocktailkaart. Onvergetelijk moment in Aveiro. Te voet vanuit hotel. &plusmn;&euro;50&ndash;65 p.p. met wijn.</div>
-      <div class="rs">&#127374; Aanbevolen: seafoodrijst met mosselen, garnalen &amp; kreeft &middot; oven-baked rice met ribeye &middot; tuna tartare &middot; miso ice cream als dessert</div>
-      <a class="bm" style="margin-top:8px" href="https://maps.google.com/?q=Mercantel+Aveiro+Cais+dos+Mercanteis" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Mercantel op Maps</a>
-    </div></div>
-  </div>
+  <div id="restaurants-lijst"></div>
+  <button class="add-blok2" style="margin:10px 14px; width:calc(100% - 28px);" onclick="addRestaurant()">+ restaurant toevoegen</button>
   <div class="tipb">
     <h3>&#9888;&#65039; Reserveren &mdash; doe dit voor vertrek</h3>
     <div class="tip"><span class="ti">Ma 15</span><span>Segreto Food &amp; Wine &mdash; reserveer via TheFork, check de -30% korting aanbieding</span></div>
@@ -384,7 +310,6 @@ textarea.n::placeholder{color:#BDB5AC}
     <p>Kleine dingen die het verschil maken &mdash; van lokale smaken tot handige apps.</p>
   </div>
 
-  <!-- ETEN & DRINKEN -->
   <div class="card">
     <div class="ch" style="background:linear-gradient(135deg,var(--ocean),#1A4A42)"><div class="ct">&#127860; Eten &amp; drinken</div></div>
     <div class="cb">
@@ -396,29 +321,26 @@ textarea.n::placeholder{color:#BDB5AC}
     </div>
   </div>
 
-  <!-- ACTIVITEITEN -->
   <div class="card">
     <div class="ch" style="background:var(--azul)"><div class="ct">&#127774;&#65039; Activiteiten &amp; uitstappen</div></div>
     <div class="cb">
-      <div class="tb"><div class="tbt">&#128218;</div><div class="tbw"><strong>Livraria Lello — Porto</strong><p>Een van de mooiste boekenhandels ter wereld, vlak bij Igreja do Carmo. Tickets verplicht op voorhand via lellolivros.pt (&plusmn;&euro;8 p.p., verrekend bij aankoop). Tip: wacht ermee tot jullie bij de kerk zijn &mdash; het is 5 minuten wandelen.</p><a class="bm" href="https://maps.google.com/?q=Livraria+Lello+Porto" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Livraria Lello</a></div></div>
+      <div class="tb"><div class="tbt">&#128218;</div><div class="tbw"><strong>Livraria Lello — Porto</strong><p>Een van de mooiste boekenhandels ter wereld, vlak bij Igreja do Carmo. Tickets verplicht op voorhand via lellolivros.pt (&plusmn;&euro;8 p.p., verrekend bij aankoop). Tip: wacht ermee tot jullie bij de kerk zijn &mdash; het is 5 minuten wandelen.</p></div></div>
       <div class="tb"><div class="tbt">&#128668;</div><div class="tbw"><strong>Tuk-tuk tour Aveiro</strong><p>Alternatief voor de moliceiro &mdash; kleine elektrische tuk-tuk toert door het centrum en langs de kanalen. &plusmn;45 min, &plusmn;&euro;15 p.p. Vertrek aan de vismarkt. Goed voor wie niet lang wil wandelen.</p></div></div>
-      <div class="tb"><div class="tbt">&#127984;&#65039;</div><div class="tbw"><strong>Forum Aveiro</strong><p>Groot modern winkelcentrum vlak bij het centrum, gebouwd door Nederlandse architecten. Goed voor een regenbui of als Martine nog meer wil shoppen. H&M, Zara, Fnac en lokale ketens.</p><a class="bm" href="https://maps.google.com/?q=Forum+Aveiro+shopping+center" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Forum Aveiro</a></div></div>
+      <div class="tb"><div class="tbt">&#127984;&#65039;</div><div class="tbw"><strong>Forum Aveiro</strong><p>Groot modern winkelcentrum vlak bij het centrum, gebouwd door Nederlandse architecten. Goed voor een regenbui of als Martine nog meer wil shoppen. H&M, Zara, Fnac en lokale ketens.</p></div></div>
       <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0"><div class="tbt">&#127754;</div><div class="tbw"><strong>Birdwatching Ria de Aveiro</strong><p>De lagune is een Natura 2000 gebied met flamingo's, lepelaars en reigers in september. Geen extra moeite &mdash; je ziet ze al vanuit Costa Nova langs de Ria.</p></div></div>
     </div>
   </div>
 
-  <!-- SOUVENIRS -->
   <div class="card">
     <div class="ch" style="background:var(--terra)"><div class="ct">&#127873; Souvenirs &amp; cadeaus</div></div>
     <div class="cb">
       <div class="tb"><div class="tbt">&#127822;</div><div class="tbw"><strong>Ovos Moles</strong><p>Het klassieke meebrengseltje. Koop bij Confeitaria Peixinho voor de mooiste verpakking. Bewaren max. 3 dagen &mdash; koop pas op de laatste dag.</p></div></div>
-      <div class="tb"><div class="tbt">&#129368;</div><div class="tbw"><strong>Vista Alegre porselein</strong><p>Aveiro is de thuisbasis van Vista Alegre &mdash; het mooiste Portugese porselein. Winkel in het centrum of aan het kanaal. Mokken, borden, vaasjes &mdash; betaalbaar en typisch.</p><a class="bm" href="https://maps.google.com/?q=Vista+Alegre+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Vista Alegre winkel</a></div></div>
+      <div class="tb"><div class="tbt">&#129368;</div><div class="tbw"><strong>Vista Alegre porselein</strong><p>Aveiro is de thuisbasis van Vista Alegre &mdash; het mooiste Portugese porselein. Winkel in het centrum of aan het kanaal. Mokken, borden, vaasjes &mdash; betaalbaar en typisch.</p></div></div>
       <div class="tb"><div class="tbt">&#129474;</div><div class="tbw"><strong>Flor de sal</strong><p>Het zout van de Ria de Aveiro &mdash; met de hand geoogst uit de zoutpannen. Puur en aromatisch. Te koop in de Mercado do Bolh&atilde;o in Porto of lokale winkels. Geweldig cadeau voor kookliefhebbers.</p></div></div>
       <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0"><div class="tbt">&#127863;</div><div class="tbw"><strong>Vinho Verde</strong><p>Neem een flesje mee naar huis. Beste adressen: supermarkt Pingo Doce of Continente. Kies voor een Alvarinho &mdash; de edele variant uit de regio.</p></div></div>
     </div>
   </div>
 
-  <!-- HANDIGE APPS & PRAKTISCH -->
   <div class="card">
     <div class="ch" style="background:#3A2A6A"><div class="ct">&#128241; Handige apps &amp; praktisch</div></div>
     <div class="cb">
@@ -426,7 +348,7 @@ textarea.n::placeholder{color:#BDB5AC}
       <div class="tb"><div class="tbt">&#128178;</div><div class="tbw"><strong>Geld &amp; betalen</strong><p>Multibanco = Portugees geldautomatennetwerk, goedkoopste optie. Kaart betalen werkt overal. Kleine restaurants soms enkel cash &mdash; altijd &plusmn;&euro;50 cash bij hebben. Fooi: 5&ndash;10% is vriendelijk maar niet verplicht.</p></div></div>
       <div class="tb"><div class="tbt">&#127760;</div><div class="tbw"><strong>Portugese basiswoorden</strong><p>"Obrigado/a" = dank u &middot; "Por favor" = alstublieft &middot; "A conta" = de rekening &middot; "Muito bom" = heel goed &middot; "Onde fica?" = waar is? &middot; "Fala holand&ecirc;s?" = spreekt u Nederlands?</p></div></div>
       <div class="tb"><div class="tbt">&#9728;&#65039;</div><div class="tbw"><strong>Weer september</strong><p>22&ndash;25&deg;C overdag, &plusmn;18&deg;C 's avonds. Neem een lichte jas mee voor de avonden. Kans op regen: klein maar niet nul &mdash; een compacte paraplu past in de tas.</p></div></div>
-      <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0"><div class="tbt">&#128205;</div><div class="tbw"><strong>Supermarkt</strong><p>Pingo Doce ligt op 5 minuten van het hotel &mdash; ideaal voor water, snacks, wijn en kleine boodschappen. Open tot 21u.</p><a class="bm" href="https://maps.google.com/?q=Pingo+Doce+Aveiro+centrum" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Pingo Doce</a></div></div>
+      <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0"><div class="tbt">&#128205;</div><div class="tbw"><strong>Supermarkt</strong><p>Pingo Doce ligt op 5 minuten van het hotel &mdash; ideaal voor water, snacks, wijn en kleine boodschappen. Open tot 21u.</p></div></div>
     </div>
   </div>
 
@@ -440,7 +362,6 @@ textarea.n::placeholder{color:#BDB5AC}
     <p>Vul jullie werkelijke kosten in tijdens de reis &mdash; het totaal wordt automatisch berekend.</p>
   </div>
 
-  <!-- TOTAAL BOVENAAN -->
   <div class="card">
     <div class="ch" style="background:#1A3010"><div class="ct">Totaal overzicht</div><div class="cd">Automatisch berekend</div></div>
     <div class="cb">
@@ -470,7 +391,6 @@ textarea.n::placeholder{color:#BDB5AC}
     </div>
   </div>
 
-  <!-- VASTE KOSTEN -->
   <div class="card">
     <div class="ch" style="background:#2A4A1A"><div class="ct">Vaste kosten &mdash; al geboekt</div><div class="cd">Gekende bedragen</div></div>
     <div class="cb">
@@ -526,7 +446,6 @@ textarea.n::placeholder{color:#BDB5AC}
     </div>
   </div>
 
-  <!-- RESTAURANTS -->
   <div class="card">
     <div class="ch" style="background:linear-gradient(135deg,var(--ocean),#1A4A42)"><div class="ct">Restaurants &mdash; 4 avonden</div><div class="cd">Werkelijk betaald</div></div>
     <div class="cb">
@@ -578,7 +497,6 @@ textarea.n::placeholder{color:#BDB5AC}
     </div>
   </div>
 
-  <!-- LUNCHES & UITSTAPPEN -->
   <div class="card">
     <div class="ch" style="background:var(--terra)"><div class="ct">Lunches &amp; daguitgaven</div><div class="cd">Werkelijk betaald</div></div>
     <div class="cb">
@@ -684,8 +602,6 @@ const db = getFirestore(fbApp);
 const storage = getStorage(fbApp);
 const guideDocRef = doc(db, 'guides', 'aveiro2026');
 
-/* Foto uploaden: comprimeren in de browser en rechtstreeks
-   naar Firebase Storage zetten. */
 function compressImage(file, maxDim, quality){
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -730,6 +646,248 @@ function veldOpslaan(id, value){
     setDoc(guideDocRef, { [id]: value }, { merge: true }).catch(e => console.error('opslaan mislukt', e));
   }, 500);
 }
+function veldOpslaanNu(id, value){
+  guideData[id] = value;
+  return setDoc(guideDocRef, { [id]: value }, { merge: true }).catch(e => console.error('opslaan mislukt', e));
+}
+
+/* ===== Standaardgegevens ===== */
+const DEFAULT_VLUCHT_HEEN = {maatschappij:'SN 3809', van:'Brussel (BRU)', naar:'Porto (OPO)', datum:'Maandag 15 sept 2026', tijd:'Vertrek 14:35 · Aankomst 16:10'};
+const DEFAULT_VLUCHT_TERUG = {maatschappij:'SN 3812', van:'Porto (OPO)', naar:'Brussel (BRU)', datum:'Vrijdag 19 sept 2026', tijd:'Vertrek 12:55 · Aankomst 15:15'};
+const DEFAULT_TRANSFER1 = {route:'Francisco Sá Carneiro (OPO) → Turim Aveiro Palace', datum:'Maandag 15 september 2026 · vlucht SN3809 · aankomst 16:10', passagiers:'2 passagiers · 2 middelgrote koffers', prijs:'€160 totaal voor heen- en retourtransfer', ref:'SD2752910426', adres:'Rua de Viana do Castelo 4, 3800-275 Aveiro', opmerking:'Chauffeur wacht met naambordje in aankomsthal. Vluchtbewaking inbegrepen.'};
+const DEFAULT_TRANSFER2 = {route:'Turim Aveiro Palace → Francisco Sá Carneiro (OPO)', datum:'Vrijdag 19 september 2026 · ophaling 09:00 aan hotel', vlucht:'Vlucht SN3812 · vertrek 12:55 · aankomst Brussel 15:15', opmerking:'Klaar zijn met bagage om 09:00 in de lobby'};
+const DEFAULT_TREIN = {stap1:'Hotel → Station Aveiro: 15 min te voet of Bolt (±€4)', stap2:'Vertrek hotel: 07:30 · aankomst Porto Campanã ±09:00', stap3:'Trein ±07:50 Aveiro → Porto Campanã · ±1u10', stap4:'Ticket ±€3,95 p.p. · koop meteen retour aan automaat', stap5:'E-bike tour Bluedragon: aanwezig om 09:15, start 09:30', stap6:'Terug: Bolt naar Campanã · trein ±17:30 → aankomst Aveiro ±19:30'};
+const DEFAULT_ACTIVITEITEN = {
+  dag2: [
+    {tijd:'09:30', titel:'Kanalen & eerste wandeling', tekst:'Na ontbijt rechtstreeks naar het Canal Central. Kleurrijke moliceiroboten, Art Nouveau gevels, historische pakhuizen.', link:'https://maps.google.com/?q=Canal+Central+Aveiro'},
+    {tijd:'11:00', titel:'Moliceiro boottocht — ±45 min', tekst:'Typische gondeltocht door de kanalen. Vertrek aan Canal Central. Prijs ±€15 p.p.', link:'https://maps.google.com/?q=Moliceiro+boat+Aveiro'},
+    {tijd:'12:30', titel:'Praça do Peixe — lunch', tekst:'Het kloppende hart van Aveiro. Terrassen rondom de vismarkt.', link:'https://maps.google.com/?q=Praca+do+Peixe+Aveiro'},
+    {tijd:'13:30', titel:'Catedral de São Domingos (Sé)', tekst:'15de-eeuwse kathedraal, asymmetrisch silhouet door aanbouw tegen het klooster. Interieur wit en sober.', link:'https://maps.google.com/?q=Se+Catedral+Aveiro'},
+    {tijd:'14:00', titel:'Igreja da Misericórdia', tekst:'16de-eeuwse kerk met blauw-witte azulejogevel. Gratis binnenkomen.', link:'https://maps.google.com/?q=Igreja+da+Misericordia+Aveiro'},
+    {tijd:'15:00', titel:'Art Nouveau wandeling', tekst:'Uitzonderlijke Art Nouveau architectuur. Museu de Arte Nova is een van die parels.', link:'https://maps.google.com/?q=Museu+Arte+Nova+Aveiro'},
+    {tijd:'17:00', titel:'Station Aveiro — azulejos', tekst:'Een van de mooiste stations van Portugal, volledig bekleed met blauwe azulejos. Gratis te bezoeken.', link:'https://maps.google.com/?q=Aveiro+Railway+Station'}
+  ],
+  dag3: [
+    {tijd:'07:30', titel:'Vroeg ontbijt & vertrek hotel', tekst:'Vandaag vroeg klaar zijn. Ontbijt voor 07:30, om 07:35 vertrekken naar het station.', link:''},
+    {tijd:'07:35', titel:'Hotel → Station — te voet of Bolt', tekst:'15 minuten wandelen. Of Bolt voor ±€4.', link:'https://maps.google.com/maps?saddr=Rua+de+Viana+do+Castelo+4+Aveiro&daddr=Aveiro+train+station&travelmode=walking'},
+    {tijd:'07:50', titel:'Trein Aveiro → Porto Campanã', tekst:'Directe trein, ±1u10. Tickets ±€3,95 p.p. — koop meteen retour.', link:'https://maps.google.com/?q=Aveiro+train+station'},
+    {tijd:'09:00', titel:'Aankomst Porto Campanã → Bluedragon', tekst:'Metro lijn D of E richting centrum (±€2 p.p.) of Bolt. Aanwezig om 09:15.', link:'https://maps.google.com/?q=Porto+Campanha+station'},
+    {tijd:'09:15', titel:'Aanwezig bij Bluedragon Porto City Tours', tekst:'R. de Alexandre Herculano 251, Porto · Ref: 1426044289. Tour start 09:30, einde ±12:30. Helm verplicht (voorzien).', link:'https://maps.app.goo.gl/vjujVKqsxC1cNKh87'},
+    {tijd:'12:30', titel:'Lunch in Porto', tekst:'Ribeira heeft veel terrassen langs de Douro. Stap een steegje in voor betere kwaliteit.', link:''},
+    {tijd:'14:00', titel:'Rua de Santa Catarina — winkelen', tekst:'De mooiste winkelstraat van Porto. Bolt vanuit Ribeira: ±€5.', link:'https://maps.google.com/?q=Rua+de+Santa+Catarina+Porto'},
+    {tijd:'15:00', titel:'Mercado do Bolhão', tekst:'Prachtig gerenoveerde overdekte markt uit 1914. Lokale producten, verse vis, souvenirs.', link:'https://maps.google.com/?q=Mercado+do+Bolhao+Porto'},
+    {tijd:'15:45', titel:'Igreja do Carmo — azulejogevel', tekst:'Een van de mooiste kerken van Porto. Spectaculaire azulejogevel.', link:'https://maps.google.com/?q=Igreja+do+Carmo+Porto'},
+    {tijd:'16:30', titel:'Terrasje als afsluiter', tekst:'Koffie of een glaasje voor de terugreis. Bolt naar Campanã: ±€6.', link:''},
+    {tijd:'17:30', titel:'Trein terug naar Aveiro', tekst:'Bolt naar Campanã, trein ±1u10. Aankomst Aveiro ±19:30. Avond: Cais do Pescado.', link:'https://maps.google.com/?q=Porto+Campanha+station'}
+  ],
+  dag4: [
+    {tijd:'10:00', titel:'Museu de Aveiro / Santa Joana', tekst:'Gevestigd in het voormalige Convento de Jesus uit de 15de eeuw. Graftombe van Santa Joana. Entree ±€4 p.p.', link:'https://maps.google.com/?q=Museu+de+Aveiro+Santa+Joana'},
+    {tijd:'11:30', titel:'Ovos Moles proeven', tekst:'De traditionele eidooiergebakjes van Aveiro. Bij Confeitaria Peixinho of A Mercearia.', link:'https://maps.google.com/?q=Confeitaria+Peixinho+Aveiro'},
+    {tijd:'13:00', titel:'Bus of Bolt naar Costa Nova', tekst:'Bus lijn 47 (±30 min, €2,55) of Bolt (±€12). Costa Nova ligt 13 km van Aveiro.', link:'https://maps.google.com/?q=Costa+Nova+Aveiro'},
+    {tijd:'13:30', titel:'Costa Nova — gestreepte huisjes & lunch', tekst:'De iconische palheiros. Rustig in september. Goede visrestaurantjes ter plaatse.', link:''},
+    {tijd:'15:00', titel:'Praia da Barra — vuurtoren & strand', tekst:'3 km van Costa Nova. Farol da Barra — hoogste vuurtoren van Portugal (60m). Zee ±19°C.', link:'https://maps.google.com/?q=Farol+da+Barra+Praia+da+Barra'},
+    {tijd:'18:00', titel:'Terug naar Aveiro', tekst:'Bus of Bolt terug. Avond: Mercantel.', link:'https://maps.google.com/?saddr=Costa+Nova+Aveiro&daddr=Turim+Aveiro+Palace'}
+  ]
+};
+const DEFAULT_RESTAURANTS = [
+  {avond:'Maandag 15 sept', kop:'Aankomstavond', naam:'Segreto Food & Wine', badge:'#1 Aveiro', tekst:'#1 in Aveiro op TheFork — 9.7/10 op 740 reviews. Internationaal-Portugese keuken. R. António dos Santos Lé 18, op 10 minuten van het hotel. Gem. ±€28 p.p.', link:'https://maps.google.com/?q=Segreto+Food+Wine+Aveiro+Rua+Antonio+dos+Santos+Le', linktekst:'Segreto op Maps'},
+  {avond:'Dinsdag 16 sept', kop:'Typisch Portugees', naam:'Solar do Bacalhau', badge:'Bacalhau specialist', tekst:'Top 10 in Aveiro — 9.3/10 op 1.483 recensies. Gespecialiseerd in bacalhau. R. do Clube dos Galitos 27. Gem. ±€24 p.p.', link:'https://maps.google.com/?q=Solar+do+Bacalhau+Aveiro+Rua+do+Clube+dos+Galitos', linktekst:'Solar do Bacalhau op Maps'},
+  {avond:'Woensdag 17 sept', kop:'Aan het kanaal', naam:'Cais do Pescado', badge:'Kanaaluitzicht', tekst:'Elegant zeevruchtenrestaurant aan het kanaal op Cais dos Mercanteis. Vraag raamtafel boven. ±€60–75 p.p. met wijn.', link:'https://maps.google.com/?q=Cais+do+Pescado+Aveiro+Cais+dos+Mercanteis', linktekst:'Cais do Pescado op Maps'},
+  {avond:'Donderdag 18 sept', kop:'Romantische afsluiter ❤️', naam:'Mercantel', badge:'Kanaaluitzicht', tekst:'"THE place to be" — rechtstreeks aan het kanaal, warme verlichting, intieme sfeer, eigentijdse Portugese keuken. ±€50–65 p.p. met wijn.', link:'https://maps.google.com/?q=Mercantel+Aveiro+Cais+dos+Mercanteis', linktekst:'Mercantel op Maps'}
+];
+
+function mapsBtn(url, tekst){
+  if(!url) return '';
+  return `<a class="bm" style="margin-top:7px" href="${url}" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>${tekst||'Bekijk op kaart'}</a>`;
+}
+
+function renderVluchten(){
+  const heen = guideData.vluchtHeen || DEFAULT_VLUCHT_HEEN;
+  const terug = guideData.vluchtTerug || DEFAULT_VLUCHT_TERUG;
+  const strip = `
+    <div class="vr"><span style="font-size:1.1rem">✈️</span><div><div class="vn">Heenvlucht &mdash; ${heen.maatschappij}</div><div class="vro">${heen.van} &rarr; ${heen.naar}</div><div class="vt">${heen.datum} &middot; ${heen.tijd}</div></div><span class="edit-i" onclick="editVlucht('heen')">✎</span></div>
+    <div class="vr"><span style="font-size:1.1rem">🏠</span><div><div class="vn">Terugvlucht &mdash; ${terug.maatschappij}</div><div class="vro">${terug.van} &rarr; ${terug.naar}</div><div class="vt">${terug.datum} &middot; ${terug.tijd}</div></div><span class="edit-i" onclick="editVlucht('terug')">✎</span></div>`;
+  const stripEl = document.getElementById('vlucht-strip');
+  if(stripEl) stripEl.innerHTML = strip;
+}
+window.editVlucht = function(richting){
+  const key = richting==='heen' ? 'vluchtHeen' : 'vluchtTerug';
+  const cur = guideData[key] || (richting==='heen'?DEFAULT_VLUCHT_HEEN:DEFAULT_VLUCHT_TERUG);
+  const maatschappij = prompt('Vlucht/maatschappij:', cur.maatschappij); if(maatschappij===null) return;
+  const van = prompt('Van:', cur.van); if(van===null) return;
+  const naar = prompt('Naar:', cur.naar); if(naar===null) return;
+  const datum = prompt('Datum:', cur.datum); if(datum===null) return;
+  const tijd = prompt('Tijd:', cur.tijd); if(tijd===null) return;
+  veldOpslaanNu(key, {maatschappij,van,naar,datum,tijd}).then(renderVluchten);
+};
+
+function renderTransfers(){
+  const t1 = guideData.transfer1 || DEFAULT_TRANSFER1;
+  const t2 = guideData.transfer2 || DEFAULT_TRANSFER2;
+  const el1 = document.getElementById('transfer1-detail');
+  if(el1) el1.innerHTML = `
+    <div class="tr2"><span class="i">📍</span><span>${t1.route}</span></div>
+    <div class="tr2"><span class="i">📅</span><span>${t1.datum}</span></div>
+    <div class="tr2"><span class="i">👥</span><span>${t1.passagiers}</span></div>
+    <div class="tr2"><span class="i">💰</span><span>${t1.prijs}</span></div>
+    <div class="tr2"><span class="i">📋</span><span>Reserveringsnummer: ${t1.ref}</span></div>
+    <div class="tr2"><span class="i">🏨</span><span>Afleveradres: ${t1.adres}</span></div>
+    ${t1.opmerking?`<div class="tr2"><span class="i">ℹ️</span><span>${t1.opmerking}</span></div>`:''}
+    ${mapsBtn('https://maps.google.com/?saddr=Porto+Airport+OPO&daddr=Rua+de+Viana+do+Castelo+4+Aveiro','Route luchthaven → hotel')}`;
+  const el2 = document.getElementById('transfer2-detail');
+  if(el2) el2.innerHTML = `
+    <div class="tr2"><span class="i">📍</span><span>${t2.route}</span></div>
+    <div class="tr2"><span class="i">📅</span><span>${t2.datum}</span></div>
+    <div class="tr2"><span class="i">✈️</span><span>${t2.vlucht}</span></div>
+    ${t2.opmerking?`<div class="tr2"><span class="i">⏰</span><span>${t2.opmerking}</span></div>`:''}
+    ${mapsBtn('https://maps.google.com/?saddr=Rua+de+Viana+do+Castelo+4+Aveiro&daddr=Porto+Airport+OPO','Route hotel → luchthaven')}`;
+}
+window.editTransfer = function(nr){
+  const key = nr===1 ? 'transfer1' : 'transfer2';
+  if(nr===1){
+    const cur = guideData.transfer1 || DEFAULT_TRANSFER1;
+    const route = prompt('Route:', cur.route); if(route===null) return;
+    const datum = prompt('Datum/tijd:', cur.datum); if(datum===null) return;
+    const passagiers = prompt('Passagiers/bagage:', cur.passagiers); if(passagiers===null) return;
+    const prijs = prompt('Prijs:', cur.prijs); if(prijs===null) return;
+    const ref = prompt('Reserveringsnummer:', cur.ref); if(ref===null) return;
+    const adres = prompt('Afleveradres:', cur.adres); if(adres===null) return;
+    const opmerking = prompt('Opmerking (optioneel):', cur.opmerking||''); if(opmerking===null) return;
+    veldOpslaanNu('transfer1', {route,datum,passagiers,prijs,ref,adres,opmerking}).then(renderTransfers);
+  } else {
+    const cur = guideData.transfer2 || DEFAULT_TRANSFER2;
+    const route = prompt('Route:', cur.route); if(route===null) return;
+    const datum = prompt('Datum/tijd ophaling:', cur.datum); if(datum===null) return;
+    const vlucht = prompt('Vluchtgegevens:', cur.vlucht); if(vlucht===null) return;
+    const opmerking = prompt('Opmerking (optioneel):', cur.opmerking||''); if(opmerking===null) return;
+    veldOpslaanNu('transfer2', {route,datum,vlucht,opmerking}).then(renderTransfers);
+  }
+};
+
+function renderTrein(){
+  const t = guideData.trein || DEFAULT_TREIN;
+  const el = document.getElementById('trein-detail');
+  if(!el) return;
+  el.innerHTML = `
+    <div class="tr2"><span class="i">🚴</span><span>${t.stap1}</span></div>
+    <div class="tr2"><span class="i">🕐</span><span>${t.stap2}</span></div>
+    <div class="tr2"><span class="i">🚆</span><span>${t.stap3}</span></div>
+    <div class="tr2"><span class="i">💰</span><span>${t.stap4}</span></div>
+    <div class="tr2"><span class="i">🚲</span><span>${t.stap5}</span></div>
+    <div class="tr2"><span class="i">🏨</span><span>${t.stap6}</span></div>
+    ${mapsBtn('https://maps.google.com/maps?saddr=Rua+de+Viana+do+Castelo+4+Aveiro&daddr=Aveiro+train+station&travelmode=walking','Route te voet hotel → station')}
+    ${mapsBtn('https://www.cp.pt/passageiros/pt/consultar-horarios','Treintijden CP Portugal')}`;
+}
+window.editTrein = function(){
+  const t = guideData.trein || DEFAULT_TREIN;
+  const stap1 = prompt('Stap 1 (hotel → station):', t.stap1); if(stap1===null) return;
+  const stap2 = prompt('Stap 2 (vertrektijd):', t.stap2); if(stap2===null) return;
+  const stap3 = prompt('Stap 3 (trein):', t.stap3); if(stap3===null) return;
+  const stap4 = prompt('Stap 4 (tickets):', t.stap4); if(stap4===null) return;
+  const stap5 = prompt('Stap 5 (activiteit ter plaatse):', t.stap5); if(stap5===null) return;
+  const stap6 = prompt('Stap 6 (terugreis):', t.stap6); if(stap6===null) return;
+  veldOpslaanNu('trein', {stap1,stap2,stap3,stap4,stap5,stap6}).then(renderTrein);
+};
+
+function renderActiviteiten(dagKey){
+  const lijst = (guideData.activiteiten && guideData.activiteiten[dagKey]) || DEFAULT_ACTIVITEITEN[dagKey] || [];
+  const el = document.getElementById('tijdlijn-'+dagKey);
+  if(!el) return;
+  el.innerHTML = lijst.map((a,i) => `
+    <div class="tb">
+      <div class="tbt">${a.tijd}</div>
+      <div class="tbw">
+        <strong>${a.titel} <span class="edit-i" onclick="editActiviteit('${dagKey}',${i})">✎</span> <span class="del-i" onclick="delActiviteit('${dagKey}',${i})">verwijder</span></strong>
+        <p>${a.tekst}</p>
+        ${mapsBtn(a.link, '')}
+      </div>
+    </div>`).join('') || '<div class="vdl">Nog geen activiteiten toegevoegd.</div>';
+}
+function getActiviteiten(dagKey){
+  guideData.activiteiten = guideData.activiteiten || {};
+  if(!guideData.activiteiten[dagKey]) guideData.activiteiten[dagKey] = (DEFAULT_ACTIVITEITEN[dagKey]||[]).slice();
+  return guideData.activiteiten[dagKey];
+}
+window.addActiviteit = function(dagKey){
+  const tijd = prompt('Tijdstip (bv. 14:00):'); if(tijd===null||!tijd.trim()) return;
+  const titel = prompt('Titel:'); if(titel===null||!titel.trim()) return;
+  const tekst = prompt('Beschrijving:','') || '';
+  const link = prompt('Link naar Maps (optioneel):','') || '';
+  const lijst = getActiviteiten(dagKey);
+  lijst.push({tijd:tijd.trim(), titel:titel.trim(), tekst:tekst.trim(), link:link.trim()});
+  veldOpslaanNu('activiteiten', guideData.activiteiten).then(()=>renderActiviteiten(dagKey));
+};
+window.editActiviteit = function(dagKey, i){
+  const lijst = getActiviteiten(dagKey);
+  const a = lijst[i];
+  const tijd = prompt('Tijdstip:', a.tijd); if(tijd===null) return;
+  const titel = prompt('Titel:', a.titel); if(titel===null) return;
+  const tekst = prompt('Beschrijving:', a.tekst); if(tekst===null) return;
+  const link = prompt('Link naar Maps (optioneel):', a.link||''); if(link===null) return;
+  lijst[i] = {tijd:tijd.trim(), titel:titel.trim(), tekst:tekst.trim(), link:link.trim()};
+  veldOpslaanNu('activiteiten', guideData.activiteiten).then(()=>renderActiviteiten(dagKey));
+};
+window.delActiviteit = function(dagKey, i){
+  if(!confirm('Deze activiteit verwijderen?')) return;
+  const lijst = getActiviteiten(dagKey);
+  lijst.splice(i,1);
+  veldOpslaanNu('activiteiten', guideData.activiteiten).then(()=>renderActiviteiten(dagKey));
+};
+
+function getRestaurants(){
+  if(!guideData.restaurants) guideData.restaurants = DEFAULT_RESTAURANTS.slice();
+  return guideData.restaurants;
+}
+function renderRestaurants(){
+  const lijst = getRestaurants();
+  const el = document.getElementById('restaurants-lijst');
+  if(!el) return;
+  el.innerHTML = lijst.map((r,i) => `
+    <div class="rc">
+      <div class="rh">${r.avond} &mdash; ${r.kop}</div>
+      <div class="rb2"><div class="ri">
+        <div class="rn">${r.naam} ${r.badge?`<span class="rbg rt">${r.badge}</span>`:''}</div>
+        <div class="rd">${r.tekst}</div>
+        <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap; margin-top:6px;">
+          ${mapsBtn(r.link, r.linktekst)}
+          <span class="edit-i" onclick="editRestaurant(${i})">✎ bewerk</span>
+          <span class="del-i" onclick="delRestaurant(${i})">verwijder</span>
+        </div>
+      </div></div>
+    </div>`).join('') || '<div class="vdl">Nog geen restaurants toegevoegd.</div>';
+}
+window.addRestaurant = function(){
+  const avond = prompt('Datum/avond:'); if(avond===null||!avond.trim()) return;
+  const kop = prompt('Onderschrift (bv. Laatste avond):','') || '';
+  const naam = prompt('Naam restaurant:'); if(naam===null||!naam.trim()) return;
+  const badge = prompt('Badge (optioneel):','') || '';
+  const tekst = prompt('Beschrijving:','') || '';
+  const link = prompt('Link (optioneel):','') || '';
+  const linktekst = link ? (prompt('Tekst op de link-knop:','Bekijk restaurant') || 'Bekijk restaurant') : '';
+  const lijst = getRestaurants();
+  lijst.push({avond:avond.trim(),kop:kop.trim(),naam:naam.trim(),badge:badge.trim(),tekst:tekst.trim(),link:link.trim(),linktekst:linktekst.trim()});
+  veldOpslaanNu('restaurants', lijst).then(renderRestaurants);
+};
+window.editRestaurant = function(i){
+  const lijst = getRestaurants();
+  const r = lijst[i];
+  const avond = prompt('Datum/avond:', r.avond); if(avond===null) return;
+  const kop = prompt('Onderschrift:', r.kop); if(kop===null) return;
+  const naam = prompt('Naam restaurant:', r.naam); if(naam===null) return;
+  const badge = prompt('Badge (optioneel):', r.badge||''); if(badge===null) return;
+  const tekst = prompt('Beschrijving:', r.tekst); if(tekst===null) return;
+  const link = prompt('Link (optioneel):', r.link||''); if(link===null) return;
+  const linktekst = prompt('Tekst op de link-knop:', r.linktekst||''); if(linktekst===null) return;
+  lijst[i] = {avond:avond.trim(),kop:kop.trim(),naam:naam.trim(),badge:badge.trim(),tekst:tekst.trim(),link:link.trim(),linktekst:linktekst.trim()};
+  veldOpslaanNu('restaurants', lijst).then(renderRestaurants);
+};
+window.delRestaurant = function(i){
+  if(!confirm('Dit restaurant verwijderen?')) return;
+  const lijst = getRestaurants();
+  lijst.splice(i,1);
+  veldOpslaanNu('restaurants', lijst).then(renderRestaurants);
+};
+
 const DG=[
   {id:'dag1',t:'Dag 1 - Aankomst',d:'Maandag 15 september'},
   {id:'dag2',t:'Dag 2 - Aveiro',d:'Dinsdag 16 september'},
@@ -739,11 +897,6 @@ const DG=[
 ];
 function bw(id,v){ veldOpslaan(id, v); }
 
-/* ================= BEVESTIGINGEN =================
-   Links naar vluchttickets, transferbevestigingen, tickets, etc.
-   Geen eigen bestandsopslag - gewoon een link (bv. naar een
-   gedeelde foto/screenshot op Google Drive) per bevestiging.
-   ==================================================== */
 function renderBevestigingen(){
   const lijst = guideData.bevestigingen || [];
   const el = document.getElementById('bev-lijst');
@@ -754,11 +907,9 @@ function renderBevestigingen(){
       <span class="bev-del" onclick="verwijderBevestiging(${i})">verwijder</span>
     </div>`).join('') || '<div class="vdl">Nog geen bevestigingen gekoppeld</div>';
 }
-
 function escapeHtml(str){
   return (str||'').replace(/[&<>"']/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
 }
-
 async function handleBevestigingFile(){
   const fileInp = document.getElementById('bev-file');
   const naamInp = document.getElementById('bev-naam');
@@ -780,7 +931,6 @@ async function handleBevestigingFile(){
     if (statusEl) statusEl.textContent = '⚠️ Uploaden mislukt, probeer opnieuw.';
   }
 }
-
 function voegBevestigingToe(){
   const naamInp = document.getElementById('bev-naam');
   const urlInp = document.getElementById('bev-url');
@@ -794,7 +944,6 @@ function voegBevestigingToe(){
   urlInp.value = '';
   renderBevestigingen();
 }
-
 function verwijderBevestiging(i){
   if (!guideData.bevestigingen) return;
   guideData.bevestigingen.splice(i, 1);
@@ -815,10 +964,15 @@ onSnapshot(guideDocRef, (snap) => {
     if(el && guideData[id] !== undefined) el.value = guideData[id];
   });
   renderBevestigingen();
+  renderVluchten();
+  renderTransfers();
+  renderTrein();
+  renderActiviteiten('dag2');
+  renderActiviteiten('dag3');
+  renderActiviteiten('dag4');
+  renderRestaurants();
   herbereken();
 }, (err) => console.error('sync error', err));
-
-function laad(){ /* wordt nu via onSnapshot hierboven live gedaan */ }
 
 document.addEventListener('DOMContentLoaded', () => {
   BUDGET_IDS.forEach(id => {
@@ -864,10 +1018,8 @@ function herbereken(){
   document.getElementById('tot-alles').innerHTML=fmt(totaal);
   document.getElementById('tot-pp').innerHTML=totaal>0?'&#8364; '+(totaal/2).toFixed(0)+' p.p.':'&#8364; &mdash;';
 }
-laad();herbereken();
+herbereken();
 
-/* Nodig omdat dit script nu een 'module' is: onclick/oninput in de HTML
-   kunnen anders deze functies niet meer vinden. */
 window.go = go;
 window.vul = vul;
 window.kop = kop;
@@ -877,7 +1029,6 @@ window.herbereken = herbereken;
 window.voegBevestigingToe = voegBevestigingToe;
 window.handleBevestigingFile = handleBevestigingFile;
 window.verwijderBevestiging = verwijderBevestiging;
-
 </script>
 </body>
 </html>
