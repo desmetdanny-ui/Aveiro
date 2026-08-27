@@ -155,7 +155,7 @@ textarea.n::placeholder{color:#BDB5AC}
   <div class="ovc">
     <div class="ovh">&#128197; Dagplanning</div>
     <div class="ovb">
-      <div class="ovr"><div class="ovd">Di 15 sept</div><div class="ovt">Aankomst 16:10 &middot; transfer naar Aveiro &middot; &#127374; Maré Cheia</div><div class="badge bx">Aankomst</div></div>
+      <div class="ovr"><div class="ovd">Di 15 sept</div><div class="ovt">Aankomst 16:10 &middot; transfer naar Aveiro &middot; &#127374; 3800</div><div class="badge bx">Aankomst</div></div>
       <div class="ovr"><div class="ovd">Wo 16 sept</div><div class="ovt">Aveiro &middot; kanalen, moliceiro, Art Nouveau &middot; &#127374; Solar do Bacalhau</div><div class="badge ba">Aveiro</div></div>
       <div class="ovr"><div class="ovd">Do 17 sept</div><div class="ovt">Porto &middot; trein + e-bike tour + winkelen + Igreja do Carmo &middot; &#127374; Cais do Pescado</div><div class="badge bp">Porto</div></div>
       <div class="ovr"><div class="ovd">Vr 18 sept</div><div class="ovt">Museu + Costa Nova + zee &middot; &#127374; Mercantel &#10084;&#65039;</div><div class="badge bz">Zee</div></div>
@@ -267,7 +267,7 @@ textarea.n::placeholder{color:#BDB5AC}
   <button class="add-blok2" style="margin:10px 14px; width:calc(100% - 28px);" onclick="addRestaurant()">+ restaurant toevoegen</button>
   <div class="tipb">
     <h3>&#9888;&#65039; Reserveren &mdash; doe dit voor vertrek</h3>
-    <div class="tip"><span class="ti">Di 15</span><span>Maré Cheia &mdash; open op dinsdag, dichtbij het hotel, geen reservering vereist maar wel aan te raden</span></div>
+    <div class="tip"><span class="ti">Di 15</span><span>3800 &mdash; gereserveerd via TheFork</span></div>
     <div class="tip"><span class="ti">Wo 16</span><span>Solar do Bacalhau &mdash; reserveer 1 week op voorhand via TheFork of rechtstreeks</span></div>
     <div class="tip"><span class="ti">Do 17</span><span>Cais do Pescado &mdash; reserveer 1 week op voorhand, vraag raamtafel boven</span></div>
     <div class="tip"><span class="ti">Vr 18</span><span>Mercantel &mdash; reserveer 1 week op voorhand, vraag tafel aan het kanaalraam</span></div>
@@ -453,7 +453,7 @@ textarea.n::placeholder{color:#BDB5AC}
       <div class="tb">
         <div class="tbt">Di 15</div>
         <div class="tbw">
-          <strong>Maré Cheia</strong>
+          <strong>3800</strong>
           <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
             <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
             <input type="number" id="b-r1" placeholder="totaal 2 pers." oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
@@ -578,7 +578,7 @@ textarea.n::placeholder{color:#BDB5AC}
     <h3>&#128161; Tips</h3>
     <div class="tip"><span class="ti">&#128204;</span><span>Vul bedragen in tijdens de reis &mdash; ze worden automatisch bewaard op je toestel.</span></div>
     <div class="tip"><span class="ti">&#128176;</span><span>Reken &plusmn;&euro;50 extra als buffer voor onverwachte uitgaven.</span></div>
-    <div class="tip"><span class="ti">&#128088;</span><span>Maré Cheia is dichtbij het hotel — ideaal na een vermoeiende reisdag, geen lange verplaatsing nodig.</span></div>
+    <div class="tip"><span class="ti">&#128088;</span><span>3800 ligt op ±500m van het hotel (6-7 min wandelen) — reservering al gemaakt via TheFork.</span></div>
   </div>
 </div>
 
@@ -690,7 +690,7 @@ const DEFAULT_ACTIVITEITEN = {
   ]
 };
 const DEFAULT_RESTAURANTS = [
-  {avond:'Dinsdag 15 sept', kop:'Aankomstavond', naam:'Maré Cheia', badge:'Authentiek & dichtbij', tekst:'Verse zeevruchten, gezellig en typisch Portugees, gematigd prijsniveau. Op wandelafstand van het hotel — ideaal na een reisdag: namiddagwandeling door het centrum, verfrissen, en dan lekker en ongedwongen eten. Elke dag open, ook dinsdag.', link:'https://maps.google.com/?q=Mare+Cheia+Aveiro+Rua+de+Jose+Rabumba', linktekst:'Maré Cheia op Maps'},
+  {avond:'Dinsdag 15 sept', kop:'Aankomstavond', naam:'3800', badge:'Gereserveerd via TheFork', tekst:'4,9/5 op 612 reviews, gemiddeld ±€27 p.p. Op ±500m van het hotel (6-7 min wandelen) — ideaal na een reisdag: namiddagwandeling door het centrum, verfrissen, en dan lekker en ongedwongen eten. R. Dr. Alberto Souto 15.', link:'https://www.thefork.com/restaurant/3800-r841563', linktekst:'Reserveren via TheFork'},
   {avond:'Woensdag 16 sept', kop:'Typisch Portugees', naam:'Solar do Bacalhau', badge:'Bacalhau specialist', tekst:'Top 10 in Aveiro — 9.3/10 op 1.483 recensies. Gespecialiseerd in bacalhau. R. do Clube dos Galitos 27. Gem. ±€24 p.p.', link:'https://maps.google.com/?q=Solar+do+Bacalhau+Aveiro+Rua+do+Clube+dos+Galitos', linktekst:'Solar do Bacalhau op Maps'},
   {avond:'Donderdag 17 sept', kop:'Aan het kanaal', naam:'Cais do Pescado', badge:'Kanaaluitzicht', tekst:'Elegant zeevruchtenrestaurant aan het kanaal op Cais dos Mercanteis. Vraag raamtafel boven. ±€60–75 p.p. met wijn.', link:'https://maps.google.com/?q=Cais+do+Pescado+Aveiro+Cais+dos+Mercanteis', linktekst:'Cais do Pescado op Maps'},
   {avond:'Vrijdag 18 sept', kop:'Romantische afsluiter ❤️', naam:'Mercantel', badge:'Kanaaluitzicht', tekst:'"THE place to be" — rechtstreeks aan het kanaal, warme verlichting, intieme sfeer, eigentijdse Portugese keuken. ±€50–65 p.p. met wijn.', link:'https://maps.google.com/?q=Mercantel+Aveiro+Cais+dos+Mercanteis', linktekst:'Mercantel op Maps'}
