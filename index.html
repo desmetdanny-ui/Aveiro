@@ -92,7 +92,9 @@ textarea.n::placeholder{color:#BDB5AC}
 .vdd{font-size:.67rem;color:var(--muted);margin-bottom:6px}
 .vdtx{font-size:.8rem;color:var(--azul);line-height:1.6;white-space:pre-wrap;font-style:italic}
 .vdl{font-size:.78rem;color:#C5BDB5;font-style:italic}
+.vdfoto{width:100%;max-height:220px;object-fit:cover;border-radius:8px;margin-top:8px;border:1px solid var(--line)}
 .bvs{display:block;margin:14px 14px 4px;background:var(--terra);color:white;border:none;padding:13px;border-radius:12px;font-size:.82rem;font-family:'Inter',sans-serif;font-weight:600;cursor:pointer;text-align:center;width:calc(100% - 28px)}
+.btn-foto-upload{background:var(--ocean);color:white;border:none;padding:6px 12px;border-radius:8px;font-size:.72rem;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:4px;margin-top:8px}
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:var(--azul);color:var(--zand);padding:9px 18px;border-radius:18px;font-size:.78rem;font-weight:600;z-index:200;opacity:0;pointer-events:none;transition:opacity .25s;white-space:nowrap}
 .toast.zicht{opacity:1}
 .ic{width:12px;height:12px;flex-shrink:0}
@@ -122,6 +124,14 @@ textarea.n::placeholder{color:#BDB5AC}
 .pak-txt{flex:1;color:var(--azul);line-height:1.45}
 .pak-txt.done{text-decoration:line-through;opacity:.5}
 .pak-del{color:var(--terra);font-size:.68rem;font-weight:600;cursor:pointer;flex-shrink:0}
+
+/* STYLING VOOR HET AFDRUKKEN NAAR PDF */
+@media print {
+  .hdr, .btn-deel, .tabs, .bvs, .btn-foto-upload, .tipb, .toast, textarea, button, label { display: none !important; }
+  .page { display: block !important; padding-bottom: 0 !important; }
+  body { background: white !important; color: black !important; }
+  .card { box-shadow: none !important; border: 1px solid #ccc !important; page-break-inside: avoid; }
+}
 </style>
 </head>
 <body>
@@ -254,7 +264,11 @@ textarea.n::placeholder{color:#BDB5AC}
       <div class="tb"><div class="tbt">15:00</div><div class="tbw"><strong>Art Nouveau wandeling</strong><p>Uitzonderlijke Art Nouveau architectuur. Museu de Arte Nova in een van die parels. Gratis wandelkaart bij het toeristenbureau.</p><a class="bm" href="https://maps.google.com/?q=Museu+Arte+Nova+Aveiro" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Museu Arte Nova</a></div></div>
       <div class="tb"><div class="tbt">17:00</div><div class="tbw"><strong>Station Aveiro &mdash; azulejos</strong><p>Een van de mooiste stations van Portugal. Het helderwitte gebouw uit 1916 is volledig bekleed met blauwe azulejos die regionale tradities en klederdracht uitbeelden. Niet meer in gebruik als station, maar wel gratis te bezoeken, op 5 minuten van het centrum.</p><a class="bm" href="https://maps.google.com/?q=Aveiro+Railway+Station" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Station Aveiro</a></div></div>
     </div>
-    <div class="nb"><div class="nl">&#9999;&#65039; Onze belevenissen</div><textarea class="n" id="n-dag2" placeholder="Hoe waren de kanalen? De boottocht? Wat viel op aan de stad?" oninput="bw('dag2',this.value)"></textarea></div>
+    <div class="nb">
+      <div class="nl">&#9999;&#65039; Onze belevenissen</div>
+      <textarea class="n" id="n-dag2" placeholder="Hoe waren de kanalen? De boottocht? Wat viel op aan de stad?" oninput="bw('dag2',this.value)"></textarea>
+      <label class="btn-foto-upload">📷 Foto toevoegen<input type="file" accept="image/*" style="display:none;" onchange="handleVerslagFotoUpload(event, 'dag2')"></label>
+    </div>
   </div>
 </div>
 
@@ -276,12 +290,16 @@ textarea.n::placeholder{color:#BDB5AC}
       <div class="tb"><div class="tbt">09:15</div><div class="tbw"><strong>&#128692; Aanwezig bij Bluedragon Porto City Tours</strong><p>R. de Alexandre Herculano 251, 4000-053 Porto &middot; Ref: 1426044289<br>Tour start 09:30 &mdash; einde &plusmn;12:30. Helm verplicht (wordt voorzien). Gesloten schoenen aanbevolen. E-bike doet het zware werk &mdash; geen stress voor Martine.</p><a class="bm" href="https://maps.app.goo.gl/vjujVKqsxC1cNKh87" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Startpunt Bluedragon</a></div></div>
       <div class="tb"><div class="tbt">12:30</div><div class="tbw"><strong>Lunch in Porto</strong><p>Ribeira heeft veel terrassen langs de Douro. Stap een steegje in voor betere kwaliteit &mdash; vermijd de eerste rij aan het water. Probeer een Francesinha als je avontuurlijk bent.</p></div></div>
       <div class="tb"><div class="tbt">14:00</div><div class="tbw"><strong>Rua de Santa Catarina &mdash; winkelen</strong><p>De mooiste winkelstraat van Porto. Mode, schoenen, lokale winkels, koffiezaakjes. Aangenaam te wandelen, vlak en breed. Bolt vanuit Ribeira: &plusmn;&euro;5.</p><a class="bm" href="https://maps.google.com/?q=Rua+de+Santa+Catarina+Porto" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Rua de Santa Catarina</a></div></div>
-      <div class="tb"><div class="tbt">15:00</div><div class="tbw"><strong>Mercado do Bolh&atilde;o</strong><p>Prachtig gerenoveerde overdekte markt uit 1914. Lokale producten, verse vis, Portugees handwerk en souvenirs. Op 5 minuten van Santa Catarina. Neem de tijd &mdash; dit is jouw ding.</p><a class="bm" href="https://maps.google.com/?q=Mercado+do+Bolhao+Porto" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Mercado do Bolh&atilde;o</a></div></div>
+      <div class="tb"><div class="tbt">15:00</div><div class="tbw"><strong>Mercado do Bolh&atilde;o</strong><p>Prachtig gerenoveerde overdekte markt uit 1914. Lokale producten, verse vis, Portugees handwerk en souvenirs. Op 5 minuten van Santa Catarina. Neem de tijd &mdash; dit is jou ding.</p><a class="bm" href="https://maps.google.com/?q=Mercado+do+Bolhao+Porto" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Mercado do Bolh&atilde;o</a></div></div>
       <div class="tb"><div class="tbt">15:45</div><div class="tbw"><strong>Igreja do Carmo &mdash; azulejogevel &amp; interieur</strong><p>Een van de mooiste kerken van Porto. Spectaculaire azulejogevel en vergulde houtsnijwerk van binnen. Bolt van Bolh&atilde;o: &plusmn;&euro;5. Als het uitloopt bij de markt &mdash; sla de kerk over en zet het in het verslag voor een volgende keer.</p><a class="bm" href="https://maps.google.com/?q=Igreja+do+Carmo+Porto" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Igreja do Carmo</a></div></div>
       <div class="tb"><div class="tbt">16:30</div><div class="tbw"><strong>Terrasje als afsluiter</strong><p>Koffie of een glaasje voor de terugreis. Bolt naar Campan&atilde;: &plusmn;&euro;6.</p></div></div>
       <div class="tb"><div class="tbt">17:30</div><div class="tbw"><strong>Trein terug naar Aveiro</strong><p>Bolt naar Campan&atilde;, trein &plusmn;1u10. Aankomst Aveiro &plusmn;19:30. Avond: Cais do Pescado &mdash; reserveer voor 20:30.</p><a class="bm" href="https://maps.google.com/?q=Porto+Campanha+station" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Porto Campan&atilde; terug</a></div></div>
     </div>
-    <div class="nb"><div class="nl">&#9999;&#65039; Onze belevenissen</div><textarea class="n" id="n-dag3" placeholder="Porto - hoe was de e-bike tour? De gids? Ribeira? De port in Gaia?" oninput="bw('dag3',this.value)"></textarea></div>
+    <div class="nb">
+      <div class="nl">&#9999;&#65039; Onze belevenissen</div>
+      <textarea class="n" id="n-dag3" placeholder="Porto - hoe was de e-bike tour? De gids? Ribeira? De port in Gaia?" oninput="bw('dag3',this.value)"></textarea>
+      <label class="btn-foto-upload">📷 Foto toevoegen<input type="file" accept="image/*" style="display:none;" onchange="handleVerslagFotoUpload(event, 'dag3')"></label>
+    </div>
   </div>
 </div>
 
@@ -302,7 +320,11 @@ textarea.n::placeholder{color:#BDB5AC}
       <div class="tb"><div class="tbt">15:00</div><div class="tbw"><strong>Praia da Barra &mdash; vuurtoren &amp; strand</strong><p>3 km van Costa Nova. Farol da Barra &mdash; hoogste vuurtoren van Portugal (60 m). Breed strand, zee &plusmn;19&deg;C in september.</p><a class="bm" href="https://maps.google.com/?q=Farol+da+Barra+Praia+da+Barra" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Praia da Barra</a></div></div>
       <div class="tb"><div class="tbt">18:00</div><div class="tbw"><strong>Terug naar Aveiro</strong><p>Bus of Bolt terug. Avond: Salpoente &mdash; zie tabblad Eten.</p><a class="bm" href="https://maps.google.com/?saddr=Costa+Nova+Aveiro&daddr=Turim+Aveiro+Palace" target="_blank"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/></svg>Route terug hotel</a></div></div>
     </div>
-    <div class="nb"><div class="nl">&#9999;&#65039; Onze belevenissen</div><textarea class="n" id="n-dag4" placeholder="Costa Nova - de gestreepte huisjes in het echt? Het strand? Hoe was de zee?" oninput="bw('dag4',this.value)"></textarea></div>
+    <div class="nb">
+      <div class="nl">&#9999;&#65039; Onze belevenissen</div>
+      <textarea class="n" id="n-dag4" placeholder="Costa Nova - de gestreepte huisjes in het echt? Het strand? Hoe was de zee?" oninput="bw('dag4',this.value)"></textarea>
+      <label class="btn-foto-upload">📷 Foto toevoegen<input type="file" accept="image/*" style="display:none;" onchange="handleVerslagFotoUpload(event, 'dag4')"></label>
+    </div>
   </div>
 </div>
 
@@ -371,18 +393,27 @@ textarea.n::placeholder{color:#BDB5AC}
   </div>
   <div class="card">
     <div class="ch"><div class="ct">Dag 1 &mdash; Aankomst</div><div class="cd">Maandag 15 september</div></div>
-    <div class="nb" style="border-top:none"><div class="nl">&#9999;&#65039; Onze belevenissen</div><textarea class="n" id="n-dag1" placeholder="Hoe was de aankomst? Eerste indruk hotel? Eerste avond bij O Bairro?" oninput="bw('dag1',this.value)"></textarea></div>
+    <div class="nb" style="border-top:none">
+      <div class="nl">&#9999;&#65039; Onze belevenissen</div>
+      <textarea class="n" id="n-dag1" placeholder="Hoe was de aankomst? Eerste indruk hotel? Eerste avond bij O Bairro?" oninput="bw('dag1',this.value)"></textarea>
+      <label class="btn-foto-upload">📷 Foto toevoegen<input type="file" accept="image/*" style="display:none;" onchange="handleVerslagFotoUpload(event, 'dag1')"></label>
+    </div>
   </div>
   <div class="card">
     <div class="ch"><div class="ct">Dag 5 &mdash; Vertrek</div><div class="cd">Vrijdag 19 september</div></div>
-    <div class="nb" style="border-top:none"><div class="nl">&#9999;&#65039; Laatste gedachten</div><textarea class="n" id="n-dag5" placeholder="Wat nemen jullie mee van Aveiro? Mooiste moment? Zouden jullie terugkeren?" oninput="bw('dag5',this.value)"></textarea></div>
+    <div class="nb" style="border-top:none">
+      <div class="nl">&#9999;&#65039; Laatste gedachten</div>
+      <textarea class="n" id="n-dag5" placeholder="Wat nemen jullie mee van Aveiro? Mooiste moment? Zouden jullie terugkeren?" oninput="bw('dag5',this.value)"></textarea>
+      <label class="btn-foto-upload">📷 Foto toevoegen<input type="file" accept="image/*" style="display:none;" onchange="handleVerslagFotoUpload(event, 'dag5')"></label>
+    </div>
   </div>
   <button class="bvs" onclick="kop()">&#128203; Kopieer verslag als tekst</button>
+  <button class="bvs" style="background:var(--ocean);" onclick="exporteerPDF()">📄 Opslaan of afdrukken als PDF</button>
   <div class="tipb" style="margin-top:4px">
     <h3>&#128161; Tips</h3>
     <div class="tip"><span class="ti">&#9999;&#65039;</span><span>Noteer elke dag iets &mdash; ook kleine details zijn later het meest waardevol.</span></div>
     <div class="tip"><span class="ti">&#128228;</span><span>Kopieer de tekst en deel via WhatsApp of mail met Sofie, Julie of vrienden.</span></div>
-    <div class="tip"><span class="ti">&#128424;&#65039;</span><span>Plak in Word of Google Docs om mooi af te drukken als herinnering.</span></div>
+    <div class="tip"><span class="ti">&#128424;&#65039;</span><span>Sla het op als PDF om mooi af te drukken of te bewaren als digitale herinnering.</span></div>
   </div>
 </div>
 
@@ -402,7 +433,7 @@ textarea.n::placeholder{color:#BDB5AC}
       <div class="tb"><div class="tbt">&#127869;&#65039;</div><div class="tbw"><strong>Pastel de nata</strong><p>Niet specifiek Aveirees maar overal aanwezig. Beste versie warm eten met kaneel en poedersuiker. Vraag altijd "quente" (warm).</p></div></div>
       <div class="tb"><div class="tbt">&#127863;</div><div class="tbw"><strong>Lokale wijn</strong><p>Vinho Verde past perfect bij de zeevruchten van de regio &mdash; licht, fris, lage alcohol. Bij de restaurants vragen naar een lokale aanbeveling. Prijs in supermarkt: &plusmn;&euro;4&ndash;8.</p></div></div>
       <div class="tb"><div class="tbt">&#9749;</div><div class="tbw"><strong>Koffie bestellen</strong><p>"Uma bica" = espresso &middot; "Um garoto" = espresso met melk &middot; "Um gal&atilde;o" = grote latte. Nooit "caf&eacute; au lait" zeggen &mdash; dat werkt niet.</p></div></div>
-      <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0"><div class="tbt">&#127801;</div><div class="tbw"><strong>Zonsondergang met een glas</strong><p>Beste plek: de kade van het Canal de S&atilde;o Roque rond 19:30 &mdash; het licht op de pakhuizen is dan prachtig. Neem een fles Vinho Verde mee van de supermarkt en geniet op een bankje.</p></div></div>
+      <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0"><div class="tbt">&#127801;</div><div class="tbw"><strong>Zonsondergang met een glas</strong><p>Beste plek: de kade van het Canal de S&tilde;o Roque rond 19:30 &mdash; het licht op de pakhuizen is dan prachtig. Neem een fles Vinho Verde mee van de supermarkt en geniet op een bankje.</p></div></div>
     </div>
   </div>
 
@@ -450,7 +481,6 @@ textarea.n::placeholder{color:#BDB5AC}
     <p>Vul jullie werkelijke kosten in tijdens de reis &mdash; het totaal wordt automatisch berekend.</p>
   </div>
 
-  <!-- TOTAAL BOVENAAN -->
   <div class="card">
     <div class="ch" style="background:#1A3010"><div class="ct">Totaal overzicht</div><div class="cd">Automatisch berekend</div></div>
     <div class="cb">
@@ -480,11 +510,9 @@ textarea.n::placeholder{color:#BDB5AC}
     </div>
   </div>
 
-  <!-- VASTE KOSTEN -->
   <div class="card">
     <div class="ch" style="background:#2A4A1A"><div class="ct">Vaste kosten &mdash; al geboekt</div><div class="cd">Gekende bedragen</div></div>
     <div class="cb">
-
       <div class="tb">
         <div class="tbt">Vluchten</div>
         <div class="tbw">
@@ -496,7 +524,6 @@ textarea.n::placeholder{color:#BDB5AC}
           </div>
         </div>
       </div>
-
       <div class="tb">
         <div class="tbt">Transfer</div>
         <div class="tbw">
@@ -508,7 +535,6 @@ textarea.n::placeholder{color:#BDB5AC}
           </div>
         </div>
       </div>
-
       <div class="tb">
         <div class="tbt">Hotel</div>
         <div class="tbw">
@@ -520,7 +546,6 @@ textarea.n::placeholder{color:#BDB5AC}
           </div>
         </div>
       </div>
-
       <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
         <div class="tbt">E-bike</div>
         <div class="tbw">
@@ -532,15 +557,12 @@ textarea.n::placeholder{color:#BDB5AC}
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- RESTAURANTS -->
   <div class="card">
     <div class="ch" style="background:linear-gradient(135deg,var(--ocean),#1A4A42)"><div class="ct">Restaurants &mdash; 4 avonden</div><div class="cd">Werkelijk betaald</div></div>
     <div class="cb">
-
       <div class="tb">
         <div class="tbt">Ma 15</div>
         <div class="tbw">
@@ -551,7 +573,6 @@ textarea.n::placeholder{color:#BDB5AC}
           </div>
         </div>
       </div>
-
       <div class="tb">
         <div class="tbt">Di 16</div>
         <div class="tbw">
@@ -562,7 +583,6 @@ textarea.n::placeholder{color:#BDB5AC}
           </div>
         </div>
       </div>
-
       <div class="tb">
         <div class="tbt">Wo 17</div>
         <div class="tbw">
@@ -573,7 +593,6 @@ textarea.n::placeholder{color:#BDB5AC}
           </div>
         </div>
       </div>
-
       <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
         <div class="tbt">Do 18</div>
         <div class="tbw">
@@ -584,15 +603,12 @@ textarea.n::placeholder{color:#BDB5AC}
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
-  <!-- LUNCHES & UITSTAPPEN -->
   <div class="card">
     <div class="ch" style="background:var(--terra)"><div class="ct">Lunches &amp; daguitgaven</div><div class="cd">Werkelijk betaald</div></div>
     <div class="cb">
-
       <div class="tb">
         <div class="tbt">Lunches</div>
         <div class="tbw">
@@ -604,7 +620,6 @@ textarea.n::placeholder{color:#BDB5AC}
           </div>
         </div>
       </div>
-
       <div class="tb">
         <div class="tbt">Trein</div>
         <div class="tbw">
@@ -616,7 +631,6 @@ textarea.n::placeholder{color:#BDB5AC}
           </div>
         </div>
       </div>
-
       <div class="tb">
         <div class="tbt">Bolt</div>
         <div class="tbw">
@@ -628,7 +642,6 @@ textarea.n::placeholder{color:#BDB5AC}
           </div>
         </div>
       </div>
-
       <div class="tb">
         <div class="tbt">Beziensw.</div>
         <div class="tbw">
@@ -640,7 +653,6 @@ textarea.n::placeholder{color:#BDB5AC}
           </div>
         </div>
       </div>
-
       <div class="tb">
         <div class="tbt">Shopping</div>
         <div class="tbw">
@@ -651,7 +663,6 @@ textarea.n::placeholder{color:#BDB5AC}
           </div>
         </div>
       </div>
-
       <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
         <div class="tbt">Diversen</div>
         <div class="tbw">
@@ -662,7 +673,6 @@ textarea.n::placeholder{color:#BDB5AC}
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -713,8 +723,6 @@ const db = getFirestore(fbApp);
 const storage = getStorage(fbApp);
 const guideDocRef = doc(db, 'guides', 'aveiro2026');
 
-/* Foto uploaden: comprimeren in de browser en rechtstreeks
-   naar Firebase Storage zetten. */
 function compressImage(file, maxDim, quality){
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -734,6 +742,7 @@ function compressImage(file, maxDim, quality){
     reader.readAsDataURL(file);
   });
 }
+
 async function uploadBevestigingFoto(file, pad){
   const isPdf = file.type === 'application/pdf' || /\.pdf$/i.test(file.name);
   if (isPdf){
@@ -759,6 +768,7 @@ function veldOpslaan(id, value){
     setDoc(guideDocRef, { [id]: value }, { merge: true }).catch(e => console.error('opslaan mislukt', e));
   }, 500);
 }
+
 const DG=[
   {id:'dag1',t:'Dag 1 - Aankomst',d:'Maandag 15 september'},
   {id:'dag2',t:'Dag 2 - Aveiro',d:'Dinsdag 16 september'},
@@ -768,11 +778,6 @@ const DG=[
 ];
 function bw(id,v){ veldOpslaan(id, v); }
 
-/* ================= BEVESTIGINGEN =================
-   Links naar vluchttickets, transferbevestigingen, tickets, etc.
-   Geen eigen bestandsopslag - gewoon een link (bv. naar een
-   gedeelde foto/screenshot op Google Drive) per bevestiging.
-   ==================================================== */
 function renderBevestigingen(){
   const lijst = guideData.bevestigingen || [];
   const el = document.getElementById('bev-lijst');
@@ -810,6 +815,21 @@ async function handleBevestigingFile(){
   }
 }
 
+async function handleVerslagFotoUpload(e, dagId){
+  const file = e.target.files && e.target.files[0];
+  if (!file) return;
+  tst('⏳ Foto uploaden...');
+  try {
+    const url = await uploadBevestigingFoto(file, 'verslag_' + dagId);
+    veldOpslaan('foto_' + dagId, url);
+    tst('📷 Foto toegevoegd aan verslag!');
+    vul();
+  } catch(err) {
+    console.error(err);
+    tst('⚠️ Foto uploaden mislukt');
+  }
+}
+
 function voegBevestigingToe(){
   const naamInp = document.getElementById('bev-naam');
   const urlInp = document.getElementById('bev-url');
@@ -833,7 +853,6 @@ function verwijderBevestiging(i){
 
 const BUDGET_IDS = ['b-vluchten','b-transfer','b-hotel','b-ebike','b-r1','b-r2','b-r3','b-r4','b-lunch','b-trein','b-bolt','b-uitstap','b-shop','b-div'];
 
-/* ================= VALIES / INPAKLIJST ================= */
 const PAK_STANDAARD = [
   {cat:'Kleding overdag', items:[
     {id:'kleding1', txt:"Lichte broeken/rokken + T-shirts of blouses (5-6 combinaties)"},
@@ -859,6 +878,7 @@ const PAK_STANDAARD = [
     {id:'reservaties', txt:'Reservaties restaurants &mdash; zeker Segreto en Mercantel vooraf bevestigen'},
   ]}
 ];
+
 function renderPakLijst(){
   const el = document.getElementById('pak-lijst');
   if (!el) return;
@@ -879,11 +899,13 @@ function renderPakLijst(){
   }
   el.innerHTML = h;
 }
+
 function togglePakItem(id){
   guideData['pak_'+id] = !guideData['pak_'+id];
   setDoc(guideDocRef, { ['pak_'+id]: guideData['pak_'+id] }, { merge: true }).catch(e => console.error('opslaan mislukt', e));
   renderPakLijst();
 }
+
 function voegPakItemToe(){
   const inp = document.getElementById('pak-nieuw');
   const txt = inp.value.trim();
@@ -894,11 +916,13 @@ function voegPakItemToe(){
   inp.value = '';
   renderPakLijst();
 }
+
 function togglePakExtra(i){
   guideData.pakExtra[i].done = !guideData.pakExtra[i].done;
   setDoc(guideDocRef, { pakExtra: guideData.pakExtra }, { merge: true }).catch(e => console.error('opslaan mislukt', e));
   renderPakLijst();
 }
+
 function verwijderPakExtra(i){
   guideData.pakExtra.splice(i,1);
   setDoc(guideDocRef, { pakExtra: guideData.pakExtra }, { merge: true }).catch(e => console.error('opslaan mislukt', e));
@@ -920,39 +944,57 @@ onSnapshot(guideDocRef, (snap) => {
   herbereken();
 }, (err) => console.error('sync error', err));
 
-function laad(){ /* wordt nu via onSnapshot hierboven live gedaan */ }
-
 document.addEventListener('DOMContentLoaded', () => {
   BUDGET_IDS.forEach(id => {
     const el = document.getElementById(id);
     if(el) el.addEventListener('input', () => veldOpslaan(id, el.value));
   });
 });
+
 function vul(){
-  const c=document.getElementById('vi');let h='';let ok=false;
-  DG.forEach(d=>{const el=document.getElementById('n-'+d.id);const tx=el?el.value.trim():'';if(tx)ok=true;
-    h+=`<div class="vdb"><div class="vdt">${d.t}</div><div class="vdd">${d.d}</div>${tx?`<div class="vdtx">${tx.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;')}</div>`:`<div class="vdl">Nog geen notitie.</div>`}</div>`;
+  const c=document.getElementById('vi'); let h=''; let ok=false;
+  DG.forEach(d=>{
+    const el=document.getElementById('n-'+d.id);
+    const tx=el?el.value.trim():'';
+    const fotoUrl = guideData['foto_' + d.id];
+    if(tx || fotoUrl) ok=true;
+    
+    h+=`<div class="vdb"><div class="vdt">${d.t}</div><div class="vdd">${d.d}</div>`;
+    if(tx) h+=`<div class="vdtx">${escapeHtml(tx)}</div>`;
+    if(fotoUrl) h+=`<img src="${fotoUrl}" class="vdfoto" alt="Foto ${d.t}">`;
+    if(!tx && !fotoUrl) h+=`<div class="vdl">Nog geen notitie of foto.</div>`;
+    h+=`</div>`;
   });
-  c.innerHTML=ok?h:'<p style="color:#BDB5AC;font-size:.8rem;font-style:italic;text-align:center;padding:24px 0">Vul belevenissen in - ze verschijnen hier automatisch.</p>';
+  c.innerHTML=ok?h:'<p style="color:#BDB5AC;font-size:.8rem;font-style:italic;text-align:center;padding:24px 0">Vul belevenissen of foto\'s in - ze verschijnen hier automatisch.</p>';
 }
+
 function kop(){
   let t='AVEIRO 2026 - Danny & Martine\n15 - 19 september\n\n';
   DG.forEach(d=>{const el=document.getElementById('n-'+d.id);const tx=el?el.value.trim():'';t+=d.t.toUpperCase()+'\n'+d.d+'\n'+(tx||'(geen notitie)')+'\n\n';});
   if(navigator.clipboard){navigator.clipboard.writeText(t).then(()=>tst('Verslag gekopieerd!')).catch(()=>tst('Kopieer handmatig'));}
   else{tst('Kopieer de tekst handmatig');}
 }
+
+function exporteerPDF(){
+  vul();
+  window.print();
+}
+
 function deel(){
   if(navigator.share){navigator.share({title:'Aveiro 2026 - Danny & Martine',url:window.location.href}).catch(()=>{});}
   else if(navigator.clipboard){navigator.clipboard.writeText(window.location.href).then(()=>tst('Link gekopieerd!'));}
   else{tst('Kopieer de URL uit de adresbalk');}
 }
+
 function tst(m){const t=document.getElementById('toast');t.textContent=m;t.classList.add('zicht');setTimeout(()=>t.classList.remove('zicht'),2600);}
+
 function go(n,b){
   document.querySelectorAll('.page').forEach(p=>p.classList.remove('on'));
   document.querySelectorAll('.tab').forEach(x=>x.classList.remove('on'));
   document.getElementById('p-'+n).classList.add('on');b.classList.add('on');
   window.scrollTo(0,0);if(n==='vs')vul();
 }
+
 function herbereken(){
   const g=id=>parseFloat(document.getElementById(id)?.value)||0;
   const vast=g('b-vluchten')+g('b-transfer')+g('b-hotel')+g('b-ebike');
@@ -966,18 +1008,37 @@ function herbereken(){
   document.getElementById('tot-alles').innerHTML=fmt(totaal);
   document.getElementById('tot-pp').innerHTML=totaal>0?'&#8364; '+(totaal/2).toFixed(0)+' p.p.':'&#8364; &mdash;';
 }
-laad();herbereken();
 
-/* Nodig omdat dit script nu een 'module' is: onclick/oninput in de HTML
-   kunnen anders deze functies niet meer vinden. */
+herbereken();
+
+/* Offline Service Worker Registratie */
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    const swCode = `
+      const CACHE_NAME = 'aveiro-cache-v1';
+      self.addEventListener('install', (e) => {
+        e.waitUntil(caches.open(CACHE_NAME).then((cache) => cache.addAll(['./'])));
+      });
+      self.addEventListener('fetch', (e) => {
+        e.respondWith(caches.match(e.request).then((res) => res || fetch(e.request)));
+      });
+    `;
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    const swUrl = URL.createObjectURL(blob);
+    navigator.serviceWorker.register(swUrl).catch(() => {});
+  });
+}
+
 window.go = go;
 window.vul = vul;
 window.kop = kop;
+window.exporteerPDF = exporteerPDF;
 window.deel = deel;
 window.bw = bw;
 window.herbereken = herbereken;
 window.voegBevestigingToe = voegBevestigingToe;
 window.handleBevestigingFile = handleBevestigingFile;
+window.handleVerslagFotoUpload = handleVerslagFotoUpload;
 window.verwijderBevestiging = verwijderBevestiging;
 window.togglePakItem = togglePakItem;
 window.voegPakItemToe = voegPakItemToe;
