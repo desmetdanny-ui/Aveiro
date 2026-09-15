@@ -130,6 +130,14 @@ textarea.n::placeholder{color:#BDB5AC}
 .geo-toast .gt-titel{font-family:'Cormorant Garamond',serif;font-size:1.05rem;color:var(--sun);margin-bottom:4px;display:flex;align-items:center;gap:6px}
 .geo-toast .gt-tekst{font-size:.8rem;line-height:1.5;opacity:.92}
 .geo-toast .gt-close{position:absolute;top:8px;right:10px;color:rgba(240,234,216,.6);font-size:1rem;cursor:pointer}
+.log-totaal{font-size:.95rem;font-weight:700;color:var(--azul);margin-top:8px}
+.log-add{display:flex;align-items:center;gap:6px;margin-top:8px}
+.log-add input{width:100px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)}
+.log-add button{background:var(--terra);color:white;border:none;border-radius:8px;padding:6px 14px;font-family:'Inter',sans-serif;font-size:.8rem;font-weight:600;cursor:pointer}
+.log-lijst{margin-top:8px}
+.log-item{display:flex;justify-content:space-between;align-items:center;padding:4px 0;font-size:.78rem;color:var(--muted);border-bottom:1px solid var(--line)}
+.log-item:last-child{border-bottom:none}
+.log-del{color:var(--terra);font-weight:600;cursor:pointer;flex-shrink:0;margin-left:8px}
 </style>
 </head>
 <body>
@@ -682,10 +690,7 @@ textarea.n::placeholder{color:#BDB5AC}
         <div class="tbw">
           <strong>Bolt-ritten in Porto &amp; Aveiro</strong>
           <p>Porto: &plusmn;&euro;25 &middot; Aveiro/Costa Nova: &plusmn;&euro;30</p>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
-            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
-            <input type="number" id="b-bolt" placeholder="totaal" oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
-          </div>
+          <div id="logwrap-b-bolt"></div>
         </div>
       </div>
 
@@ -694,10 +699,7 @@ textarea.n::placeholder{color:#BDB5AC}
         <div class="tbw">
           <strong>Musea, boottocht, Papagayo, Porto</strong>
           <p>Moliceiro &plusmn;&euro;30 &middot; Museu &plusmn;&euro;8 &middot; Livraria Lello &plusmn;&euro;16</p>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
-            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
-            <input type="number" id="b-uitstap" placeholder="totaal" oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
-          </div>
+          <div id="logwrap-b-uitstap"></div>
         </div>
       </div>
 
@@ -705,10 +707,7 @@ textarea.n::placeholder{color:#BDB5AC}
         <div class="tbt">Shopping</div>
         <div class="tbw">
           <strong>Mercado do Bolh&atilde;o, winkels, souvenirs</strong>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
-            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
-            <input type="number" id="b-shop" placeholder="totaal" oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
-          </div>
+          <div id="logwrap-b-shop"></div>
         </div>
       </div>
 
@@ -717,10 +716,7 @@ textarea.n::placeholder{color:#BDB5AC}
         <div class="tbw">
           <strong>Wijn, cocktails, dranken los van restaurants</strong>
           <p>Bv. flesjes Vinho Verde bij de supermarkt, terrasjes</p>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
-            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
-            <input type="number" id="b-drank" placeholder="totaal" oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
-          </div>
+          <div id="logwrap-b-drank"></div>
         </div>
       </div>
 
@@ -729,10 +725,7 @@ textarea.n::placeholder{color:#BDB5AC}
         <div class="tbw">
           <strong>Cadeaus mee naar huis</strong>
           <p>Bv. Ovos Moles, Vista Alegre, flor de sal</p>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
-            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
-            <input type="number" id="b-cadeau" placeholder="totaal" oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
-          </div>
+          <div id="logwrap-b-cadeau"></div>
         </div>
       </div>
 
@@ -740,10 +733,7 @@ textarea.n::placeholder{color:#BDB5AC}
         <div class="tbt">Diversen</div>
         <div class="tbw">
           <strong>Koffies, aperitief, fooien, onverwacht</strong>
-          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
-            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
-            <input type="number" id="b-div" placeholder="totaal" oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
-          </div>
+          <div id="logwrap-b-div"></div>
         </div>
       </div>
 
@@ -916,7 +906,8 @@ function verwijderBevestiging(i){
   renderBevestigingen();
 }
 
-const BUDGET_IDS = ['b-vluchten','b-transfer','b-hotel','b-ebike','b-r1','b-r2','b-r3','b-r4','b-lunch1','b-lunch2','b-lunch3','b-lunch4','b-lunch5','b-trein','b-bolt','b-uitstap','b-shop','b-drank','b-cadeau','b-div'];
+const BUDGET_IDS = ['b-vluchten','b-transfer','b-hotel','b-ebike','b-r1','b-r2','b-r3','b-r4','b-lunch1','b-lunch2','b-lunch3','b-lunch4','b-lunch5','b-trein'];
+const LOG_IDS = ['b-bolt','b-uitstap','b-shop','b-drank','b-cadeau','b-div'];
 
 /* ================= VALIES / INPAKLIJST ================= */
 const PAK_STANDAARD = [
@@ -1029,6 +1020,7 @@ onSnapshot(guideDocRef, (snap) => {
     const el = document.getElementById(id);
     if(el && guideData[id] !== undefined) el.value = guideData[id];
   });
+  LOG_IDS.forEach(id => renderLog(id));
   renderBevestigingen();
   renderPakLijst();
   herbereken();
@@ -1041,7 +1033,54 @@ document.addEventListener('DOMContentLoaded', () => {
     const el = document.getElementById(id);
     if(el) el.addEventListener('input', () => veldOpslaan(id, el.value));
   });
+  LOG_IDS.forEach(id => renderLog(id));
 });
+
+/* ================= UITGAVEN-LOGBOEKJE =================
+   Voor Bolt, Beziensw., Shopping, Dranken, Geschenken en
+   Diversen: elk ingevoerd bedrag komt erbij in plaats van het
+   vorige te overschrijven. guideData['log_'+id] is een array
+   van bedragen.
+   ======================================================== */
+function logSom(id){
+  const lijst = guideData['log_'+id] || [];
+  return lijst.reduce((s,x) => s + (parseFloat(x)||0), 0);
+}
+function renderLog(id){
+  const wrap = document.getElementById('logwrap-'+id);
+  if (!wrap) return;
+  const lijst = guideData['log_'+id] || [];
+  const som = logSom(id);
+  let h = `<div class="log-totaal">&#8364; ${som>0?som.toFixed(2):'0'}</div>`;
+  h += `<div class="log-add"><span style="font-size:.78rem;color:var(--muted)">&#8364;</span><input type="number" id="logvak-${id}" placeholder="bedrag" onkeydown="if(event.key==='Enter')voegUitgaveToe('${id}')"><button onclick="voegUitgaveToe('${id}')">+ toevoegen</button></div>`;
+  if (lijst.length){
+    h += '<div class="log-lijst">';
+    lijst.forEach((bedrag, i) => {
+      h += `<div class="log-item"><span>&#8364; ${parseFloat(bedrag).toFixed(2)}</span><span class="log-del" onclick="verwijderUitgave('${id}',${i})">verwijder</span></div>`;
+    });
+    h += '</div>';
+  }
+  wrap.innerHTML = h;
+}
+function voegUitgaveToe(id){
+  const inp = document.getElementById('logvak-'+id);
+  const val = parseFloat(inp.value);
+  if (!val || val <= 0) return;
+  guideData['log_'+id] = guideData['log_'+id] || [];
+  guideData['log_'+id].push(val);
+  setDoc(guideDocRef, { ['log_'+id]: guideData['log_'+id] }, { merge: true }).catch(e => console.error('opslaan mislukt', e));
+  inp.value = '';
+  renderLog(id);
+  herbereken();
+}
+function verwijderUitgave(id, i){
+  if (!guideData['log_'+id]) return;
+  guideData['log_'+id].splice(i,1);
+  setDoc(guideDocRef, { ['log_'+id]: guideData['log_'+id] }, { merge: true }).catch(e => console.error('opslaan mislukt', e));
+  renderLog(id);
+  herbereken();
+}
+
 function vul(){
   const c=document.getElementById('vi');let h='';let ok=false;
   DG.forEach(d=>{const el=document.getElementById('n-'+d.id);const tx=el?el.value.trim():'';if(tx)ok=true;
@@ -1071,7 +1110,7 @@ function herbereken(){
   const g=id=>parseFloat(document.getElementById(id)?.value)||0;
   const vast=g('b-vluchten')+g('b-transfer')+g('b-hotel')+g('b-ebike');
   const eten=g('b-r1')+g('b-r2')+g('b-r3')+g('b-r4')+g('b-lunch1')+g('b-lunch2')+g('b-lunch3')+g('b-lunch4')+g('b-lunch5');
-  const ter=g('b-trein')+g('b-bolt')+g('b-uitstap')+g('b-shop')+g('b-drank')+g('b-cadeau')+g('b-div');
+  const ter=g('b-trein')+logSom('b-bolt')+logSom('b-uitstap')+logSom('b-shop')+logSom('b-drank')+logSom('b-cadeau')+logSom('b-div');
   const totaal=vast+eten+ter;
   const fmt=n=>n>0?'&#8364; '+n.toFixed(0):'&#8364; &mdash;';
   document.getElementById('tot-vast').innerHTML=fmt(vast);
@@ -1189,6 +1228,8 @@ window.voegPakItemToe = voegPakItemToe;
 window.togglePakExtra = togglePakExtra;
 window.verwijderPakExtra = verwijderPakExtra;
 window.sluitGeoToast = sluitGeoToast;
+window.voegUitgaveToe = voegUitgaveToe;
+window.verwijderUitgave = verwijderUitgave;
 
 </script>
 </body>
