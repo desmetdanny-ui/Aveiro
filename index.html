@@ -712,6 +712,30 @@ textarea.n::placeholder{color:#BDB5AC}
         </div>
       </div>
 
+      <div class="tb">
+        <div class="tbt">Dranken</div>
+        <div class="tbw">
+          <strong>Wijn, cocktails, dranken los van restaurants</strong>
+          <p>Bv. flesjes Vinho Verde bij de supermarkt, terrasjes</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-drank" placeholder="totaal" oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
+      <div class="tb">
+        <div class="tbt">Geschenken</div>
+        <div class="tbw">
+          <strong>Cadeaus mee naar huis</strong>
+          <p>Bv. Ovos Moles, Vista Alegre, flor de sal</p>
+          <div style="display:flex;align-items:center;gap:8px;margin-top:8px">
+            <span style="font-size:.78rem;color:var(--muted)">&#8364;</span>
+            <input type="number" id="b-cadeau" placeholder="totaal" oninput="herbereken()" style="width:150px;border:1.5px solid var(--line);border-radius:8px;padding:6px 10px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--azul)">
+          </div>
+        </div>
+      </div>
+
       <div class="tb" style="border-bottom:none;padding-bottom:0;margin-bottom:0">
         <div class="tbt">Diversen</div>
         <div class="tbw">
@@ -892,7 +916,7 @@ function verwijderBevestiging(i){
   renderBevestigingen();
 }
 
-const BUDGET_IDS = ['b-vluchten','b-transfer','b-hotel','b-ebike','b-r1','b-r2','b-r3','b-r4','b-lunch1','b-lunch2','b-lunch3','b-lunch4','b-lunch5','b-trein','b-bolt','b-uitstap','b-shop','b-div'];
+const BUDGET_IDS = ['b-vluchten','b-transfer','b-hotel','b-ebike','b-r1','b-r2','b-r3','b-r4','b-lunch1','b-lunch2','b-lunch3','b-lunch4','b-lunch5','b-trein','b-bolt','b-uitstap','b-shop','b-drank','b-cadeau','b-div'];
 
 /* ================= VALIES / INPAKLIJST ================= */
 const PAK_STANDAARD = [
@@ -1047,7 +1071,7 @@ function herbereken(){
   const g=id=>parseFloat(document.getElementById(id)?.value)||0;
   const vast=g('b-vluchten')+g('b-transfer')+g('b-hotel')+g('b-ebike');
   const eten=g('b-r1')+g('b-r2')+g('b-r3')+g('b-r4')+g('b-lunch1')+g('b-lunch2')+g('b-lunch3')+g('b-lunch4')+g('b-lunch5');
-  const ter=g('b-trein')+g('b-bolt')+g('b-uitstap')+g('b-shop')+g('b-div');
+  const ter=g('b-trein')+g('b-bolt')+g('b-uitstap')+g('b-shop')+g('b-drank')+g('b-cadeau')+g('b-div');
   const totaal=vast+eten+ter;
   const fmt=n=>n>0?'&#8364; '+n.toFixed(0):'&#8364; &mdash;';
   document.getElementById('tot-vast').innerHTML=fmt(vast);
