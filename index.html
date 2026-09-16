@@ -1025,7 +1025,13 @@ onSnapshot(guideDocRef, (snap) => {
   guideData = snap.exists() ? snap.data() : {};
   DG.forEach(d => {
     const el = document.getElementById('n-'+d.id);
-    if(el && guideData[d.id] !== undefined) el.value = guideData[d.id];
+    if(!el) return;
+    if(guideData[d.id] !== undefined){
+      el.value = guideData[d.id];
+    } else if(el.value.trim() !== ''){
+      /* vooraf ingevulde tekst in de HTML die nog nooit is opgeslagen: nu alsnog wegschrijven */
+      veldOpslaan(d.id, el.value);
+    }
   });
   BUDGET_IDS.forEach(id => {
     const el = document.getElementById(id);
